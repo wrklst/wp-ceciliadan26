@@ -63,93 +63,86 @@ add_filter('theme_file_path', function ($path, $file) {
  * @return void
  */
 add_action('after_setup_theme', function () {
-    /**
-     * Disable full-site editing support.
-     *
-     * @link https://wptavern.com/gutenberg-10-5-embeds-pdfs-adds-verse-block-color-options-and-introduces-new-patterns
-     */
     remove_theme_support('block-templates');
+    remove_theme_support('core-block-patterns');
 
-    /**
-     * Register the navigation menus.
-     *
-     * @link https://developer.wordpress.org/reference/functions/register_nav_menus/
-     */
     register_nav_menus([
         'primary_navigation' => __('Primary Navigation', 'sage'),
     ]);
 
-    /**
-     * Disable the default block patterns.
-     *
-     * @link https://developer.wordpress.org/block-editor/developers/themes/theme-support/#disabling-the-default-block-patterns
-     */
-    remove_theme_support('core-block-patterns');
-
-    /**
-     * Enable plugins to manage the document title.
-     *
-     * @link https://developer.wordpress.org/reference/functions/add_theme_support/#title-tag
-     */
     add_theme_support('title-tag');
-
-    /**
-     * Enable post thumbnail support.
-     *
-     * @link https://developer.wordpress.org/themes/functionality/featured-images-post-thumbnails/
-     */
     add_theme_support('post-thumbnails');
-
-    /**
-     * Enable responsive embed support.
-     *
-     * @link https://developer.wordpress.org/block-editor/how-to-guides/themes/theme-support/#responsive-embedded-content
-     */
     add_theme_support('responsive-embeds');
-
-    /**
-     * Enable HTML5 markup support.
-     *
-     * @link https://developer.wordpress.org/reference/functions/add_theme_support/#html5
-     */
     add_theme_support('html5', [
         'caption',
-        'comment-form',
-        'comment-list',
         'gallery',
         'search-form',
         'script',
         'style',
     ]);
-
-    /**
-     * Enable selective refresh for widgets in customizer.
-     *
-     * @link https://developer.wordpress.org/reference/functions/add_theme_support/#customize-selective-refresh-widgets
-     */
-    add_theme_support('customize-selective-refresh-widgets');
 }, 20);
 
 /**
- * Register the theme sidebars.
+ * Clean up wp_head output.
  *
- * @return void
+ * Remove all non-essential WordPress output for a custom theme
+ * that does not use the block editor on the frontend.
  */
-add_action('widgets_init', function () {
-    $config = [
-        'before_widget' => '<section class="widget %1$s %2$s">',
-        'after_widget' => '</section>',
-        'before_title' => '<h3>',
-        'after_title' => '</h3>',
-    ];
+add_action('init', function () {
+    remove_action('wp_head', 'wp_generator');
+    remove_action('wp_head', 'rsd_link');
+    remove_action('wp_head', 'wlwmanifest_link');
+    remove_action('wp_head', 'wp_shortlink_wp_head', 10);
+    remove_action('wp_head', 'adjacent_posts_rel_link_wp_head', 10);
+    remove_action('wp_head', 'feed_links', 2);
+    remove_action('wp_head', 'feed_links_extra', 3);
+    remove_action('wp_head', 'rest_output_link_wp_head', 10);
+    remove_action('wp_head', 'wp_oembed_add_discovery_links');
+    remove_action('wp_head', 'wp_site_icon', 99);
 
-    register_sidebar([
-        'name' => __('Primary', 'sage'),
-        'id' => 'sidebar-primary',
-    ] + $config);
+    // Remove emoji support
+    remove_action('wp_head', 'print_emoji_detection_script', 7);
+    remove_action('wp_print_styles', 'print_emoji_styles');
+    remove_action('admin_print_scripts', 'print_emoji_detection_script');
+    remove_action('admin_print_styles', 'print_emoji_styles');
+    remove_filter('the_content_feed', 'wp_staticize_emoji');
+    remove_filter('comment_text_rss', 'wp_staticize_emoji');
+    remove_filter('wp_mail', 'wp_staticize_emoji_for_email');
+    add_filter('emoji_svg_url', '__return_false');
 
-    register_sidebar([
-        'name' => __('Footer', 'sage'),
-        'id' => 'sidebar-footer',
-    ] + $config);
+    // Remove global styles and SVG filters
+    remove_action('wp_enqueue_scripts', 'wp_enqueue_global_styles');
+    remove_action('wp_body_open', 'wp_global_styles_render_svg_filters');
+    remove_action('wp_footer', 'wp_enqueue_stored_styles', 1);
+});
+
+/**
+ * Remove DNS prefetch for s.w.org.
+ */
+add_filter('wp_resource_hints', function ($hints, $relation_type) {
+    if ($relation_type === 'dns-prefetch') {
+        $hints = array_filter($hints, function ($hint) {
+            return ! str_contains($hint, 's.w.org');
+        });
+    }
+
+    return $hints;
+}, 10, 2);
+
+/**
+ * Dequeue block editor styles on the frontend.
+ */
+add_action('wp_enqueue_scripts', function () {
+    wp_dequeue_style('wp-block-library');
+    wp_dequeue_style('wp-block-library-theme');
+    wp_dequeue_style('global-styles');
+    wp_dequeue_style('classic-theme-styles');
+}, 20);
+
+/**
+ * Disable WordPress speculation rules.
+ */
+add_filter('wp_speculation_rules_configuration', '__return_null');
+add_action('wp_enqueue_scripts', function () {
+    wp_deregister_script('wp-speculation-rules');
 });

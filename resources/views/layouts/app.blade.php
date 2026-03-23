@@ -3,6 +3,8 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="color-scheme" content="light">
+    <meta name="format-detection" content="telephone=no, date=no, email=no, address=no">
     @php(do_action('get_header'))
     @php(wp_head())
 
@@ -22,12 +24,6 @@
       <main id="main" class="main">
         @yield('content')
       </main>
-
-      @hasSection('sidebar')
-        <aside class="sidebar">
-          @yield('sidebar')
-        </aside>
-      @endif
 
       @include('sections.footer')
     </div>

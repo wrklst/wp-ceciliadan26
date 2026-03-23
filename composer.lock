@@ -1988,6 +1988,56 @@
             "time": "2024-07-23T16:31:01+00:00"
         },
         {
+            "name": "illuminate/pagination",
+            "version": "v12.55.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/illuminate/pagination.git",
+                "reference": "8327d828676654053906a771abf5eea5426354ec"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/illuminate/pagination/zipball/8327d828676654053906a771abf5eea5426354ec",
+                "reference": "8327d828676654053906a771abf5eea5426354ec",
+                "shasum": ""
+            },
+            "require": {
+                "ext-filter": "*",
+                "illuminate/collections": "^12.0",
+                "illuminate/contracts": "^12.0",
+                "illuminate/support": "^12.0",
+                "php": "^8.2"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "12.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Illuminate\\Pagination\\": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Taylor Otwell",
+                    "email": "taylor@laravel.com"
+                }
+            ],
+            "description": "The Illuminate Pagination package.",
+            "homepage": "https://laravel.com",
+            "support": {
+                "issues": "https://github.com/laravel/framework/issues",
+                "source": "https://github.com/laravel/framework"
+            },
+            "time": "2026-02-25T15:25:18+00:00"
+        },
+        {
             "name": "illuminate/pipeline",
             "version": "v12.49.0",
             "source": {
@@ -3878,16 +3928,16 @@
         },
         {
             "name": "roots/acorn",
-            "version": "v5.0.5",
+            "version": "v5.1.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/roots/acorn.git",
-                "reference": "bc51c932b87fc35dd1c8dd6bacb3c31469fe5029"
+                "reference": "e1feb675a824709aface11cf8965dcd01655d655"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/roots/acorn/zipball/bc51c932b87fc35dd1c8dd6bacb3c31469fe5029",
-                "reference": "bc51c932b87fc35dd1c8dd6bacb3c31469fe5029",
+                "url": "https://api.github.com/repos/roots/acorn/zipball/e1feb675a824709aface11cf8965dcd01655d655",
+                "reference": "e1feb675a824709aface11cf8965dcd01655d655",
                 "shasum": ""
             },
             "require": {
@@ -3909,6 +3959,7 @@
                 "illuminate/hashing": "^12.0",
                 "illuminate/http": "^12.0",
                 "illuminate/log": "^12.0",
+                "illuminate/pagination": "^12.0",
                 "illuminate/queue": "^12.0",
                 "illuminate/routing": "^12.0",
                 "illuminate/support": "^12.0",
@@ -3916,7 +3967,7 @@
                 "illuminate/validation": "^12.0",
                 "illuminate/view": "^12.0",
                 "laravel/prompts": "^0.3.0",
-                "laravel/serializable-closure": "^1.3",
+                "laravel/serializable-closure": "^1.3|^2.0",
                 "league/flysystem": "^3.26",
                 "php": ">=8.2",
                 "ramsey/uuid": "^4.7",
@@ -3928,18 +3979,17 @@
             "require-dev": {
                 "laravel/pint": "^1.15",
                 "mockery/mockery": "^1.6",
-                "pestphp/pest": "^2.34",
+                "pestphp/pest": "^3.0",
                 "phpcompatibility/php-compatibility": "^9.3",
                 "roave/security-advisories": "dev-master",
                 "spatie/laravel-ignition": "^2.5",
-                "spatie/pest-plugin-snapshots": "^2.1",
+                "spatie/pest-plugin-snapshots": "^2.3",
                 "spatie/temporary-directory": "^2.2",
                 "tmarsteel/mockery-callable-mock": "^2.1",
                 "wp-cli/wp-cli": "^2.10"
             },
             "suggest": {
-                "roots/acorn-prettify": "A collection of modules to apply theme-agnostic front-end modifications (^1.0).",
-                "spatie/laravel-ignition": "A beautiful error page for development (^2.0)."
+                "roots/acorn-prettify": "A collection of modules to apply theme-agnostic front-end modifications (^1.0)."
             },
             "bin": [
                 "bin/acorn"
@@ -3980,7 +4030,7 @@
             "support": {
                 "forum": "https://discourse.roots.io/",
                 "issues": "https://github.com/roots/acorn/issues",
-                "source": "https://github.com/roots/acorn/tree/v5.0.5"
+                "source": "https://github.com/roots/acorn/tree/v5.1.1"
             },
             "funding": [
                 {
@@ -3988,7 +4038,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2025-08-05T18:57:59+00:00"
+            "time": "2026-03-23T14:57:56+00:00"
         },
         {
             "name": "roots/support",
@@ -6390,16 +6440,16 @@
     "packages-dev": [
         {
             "name": "laravel/pint",
-            "version": "v1.27.0",
+            "version": "v1.29.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laravel/pint.git",
-                "reference": "c67b4195b75491e4dfc6b00b1c78b68d86f54c90"
+                "reference": "bdec963f53172c5e36330f3a400604c69bf02d39"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laravel/pint/zipball/c67b4195b75491e4dfc6b00b1c78b68d86f54c90",
-                "reference": "c67b4195b75491e4dfc6b00b1c78b68d86f54c90",
+                "url": "https://api.github.com/repos/laravel/pint/zipball/bdec963f53172c5e36330f3a400604c69bf02d39",
+                "reference": "bdec963f53172c5e36330f3a400604c69bf02d39",
                 "shasum": ""
             },
             "require": {
@@ -6410,13 +6460,14 @@
                 "php": "^8.2.0"
             },
             "require-dev": {
-                "friendsofphp/php-cs-fixer": "^3.92.4",
-                "illuminate/view": "^12.44.0",
-                "larastan/larastan": "^3.8.1",
-                "laravel-zero/framework": "^12.0.4",
+                "friendsofphp/php-cs-fixer": "^3.94.2",
+                "illuminate/view": "^12.54.1",
+                "larastan/larastan": "^3.9.3",
+                "laravel-zero/framework": "^12.0.5",
                 "mockery/mockery": "^1.6.12",
-                "nunomaduro/termwind": "^2.3.3",
-                "pestphp/pest": "^3.8.4"
+                "nunomaduro/termwind": "^2.4.0",
+                "pestphp/pest": "^3.8.6",
+                "shipfastlabs/agent-detector": "^1.1.0"
             },
             "bin": [
                 "builds/pint"
@@ -6453,7 +6504,7 @@
                 "issues": "https://github.com/laravel/pint/issues",
                 "source": "https://github.com/laravel/pint"
             },
-            "time": "2026-01-05T16:49:17+00:00"
+            "time": "2026-03-12T15:51:39+00:00"
         }
     ],
     "aliases": [],

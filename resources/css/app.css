@@ -1,3 +1,69 @@
 @import "tailwindcss" theme(static);
 @source "../views/";
 @source "../../app/";
+
+/* Hide scrollbars while preserving scroll functionality */
+*,
+*::before,
+*::after {
+  scrollbar-width: none;
+}
+
+::-webkit-scrollbar {
+  display: none;
+}
+
+/* Focus indicators — WCAG 2.4.13 compliant */
+:focus-visible {
+  outline: 2px solid currentColor;
+  outline-offset: 2px;
+}
+
+/* Respect reduced motion preference */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* Print styles */
+@media print {
+  body {
+    display: block;
+    min-height: auto;
+    color: #000;
+    background: #fff;
+  }
+
+  nav,
+  .sr-only,
+  .skip-to-content,
+  footer {
+    display: none;
+  }
+
+  a[href]::after {
+    content: " (" attr(href) ")";
+    font-size: 0.8em;
+    color: #555;
+  }
+
+  a[href^="#"]::after,
+  a[href^="javascript:"]::after {
+    content: "";
+  }
+
+  img {
+    max-width: 100% !important;
+    page-break-inside: avoid;
+  }
+
+  h1, h2, h3 {
+    page-break-after: avoid;
+  }
+}

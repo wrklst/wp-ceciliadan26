@@ -1,0 +1,124 @@
+# ==========================================================================
+# Cecilia Dan — .htaccess
+# Copy this file to the WordPress root directory (ceciliadan/)
+# ==========================================================================
+
+# BEGIN WordPress
+<IfModule mod_rewrite.c>
+RewriteEngine On
+RewriteRule .* - [E=HTTP_AUTHORIZATION:%{HTTP:Authorization}]
+RewriteBase /
+RewriteRule ^index\.php$ - [L]
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule . /index.php [L]
+</IfModule>
+# END WordPress
+
+# --------------------------------------------------------------------------
+# Block XML-RPC — no legitimate use cases remain
+# --------------------------------------------------------------------------
+<Files xmlrpc.php>
+  Require all denied
+</Files>
+
+# --------------------------------------------------------------------------
+# Security headers
+# --------------------------------------------------------------------------
+<IfModule mod_headers.c>
+  # HSTS — force HTTPS (enable on production with SSL)
+  # Header always set Strict-Transport-Security "max-age=63072000; includeSubDomains; preload"
+
+  # Prevent MIME-type sniffing
+  Header always set X-Content-Type-Options "nosniff"
+
+  # Clickjacking protection
+  Header always set X-Frame-Options "SAMEORIGIN"
+
+  # Referrer policy
+  Header always set Referrer-Policy "strict-origin-when-cross-origin"
+
+  # Cross-Origin-Opener-Policy
+  Header always set Cross-Origin-Opener-Policy "same-origin"
+
+  # Permissions Policy — deny unused browser APIs
+  Header always set Permissions-Policy "accelerometer=(), autoplay=(), camera=(), cross-origin-isolated=(), display-capture=(), encrypted-media=(), fullscreen=(), geolocation=(), gyroscope=(), keyboard-map=(), magnetometer=(), microphone=(), midi=(), payment=(), picture-in-picture=(), publickey-credentials-get=(), screen-wake-lock=(), sync-xhr=(), usb=(), xr-spatial-tracking=(), browsing-topics=()"
+</IfModule>
+
+# --------------------------------------------------------------------------
+# Compression — Brotli preferred, Gzip fallback
+# --------------------------------------------------------------------------
+<IfModule mod_brotli.c>
+  AddOutputFilterByType BROTLI_COMPRESS text/html text/plain text/css text/xml text/javascript
+  AddOutputFilterByType BROTLI_COMPRESS application/javascript application/json application/xml
+  AddOutputFilterByType BROTLI_COMPRESS application/rss+xml application/atom+xml
+  AddOutputFilterByType BROTLI_COMPRESS image/svg+xml
+  AddOutputFilterByType BROTLI_COMPRESS font/woff2
+  BrotliCompressionQuality 5
+</IfModule>
+
+<IfModule mod_deflate.c>
+  AddOutputFilterByType DEFLATE text/html text/plain text/css text/xml text/javascript
+  AddOutputFilterByType DEFLATE application/javascript application/json application/xml
+  AddOutputFilterByType DEFLATE application/rss+xml application/atom+xml
+  AddOutputFilterByType DEFLATE image/svg+xml
+  AddOutputFilterByType DEFLATE font/woff2
+</IfModule>
+
+# --------------------------------------------------------------------------
+# Caching
+# --------------------------------------------------------------------------
+<IfModule mod_expires.c>
+  ExpiresActive On
+
+  # HTML — always revalidate
+  ExpiresByType text/html "access plus 0 seconds"
+
+  # Hashed assets (Vite build output) — immutable
+  <If "%{REQUEST_URI} =~ m#/public/build/assets/#">
+    Header set Cache-Control "public, max-age=31536000, immutable"
+  </If>
+
+  # Fonts
+  ExpiresByType font/woff2 "access plus 1 year"
+  ExpiresByType font/woff "access plus 1 year"
+
+  # Images
+  ExpiresByType image/avif "access plus 1 year"
+  ExpiresByType image/webp "access plus 1 year"
+  ExpiresByType image/jpeg "access plus 1 year"
+  ExpiresByType image/png "access plus 1 year"
+  ExpiresByType image/gif "access plus 1 year"
+  ExpiresByType image/svg+xml "access plus 1 year"
+  ExpiresByType image/x-icon "access plus 1 month"
+
+  # CSS/JS (non-hashed fallback)
+  ExpiresByType text/css "access plus 1 year"
+  ExpiresByType application/javascript "access plus 1 year"
+
+  # Favicons
+  ExpiresByType image/vnd.microsoft.icon "access plus 1 month"
+</IfModule>
+
+# Cache-Control for HTML
+<IfModule mod_headers.c>
+  <FilesMatch "\.(html|php)$">
+    Header set Cache-Control "no-cache, must-revalidate"
+  </FilesMatch>
+
+  <FilesMatch "\.(woff2|woff)$">
+    Header set Cache-Control "public, max-age=31536000, immutable"
+  </FilesMatch>
+</IfModule>
+
+# --------------------------------------------------------------------------
+# Prevent directory listing
+# --------------------------------------------------------------------------
+Options -Indexes
+
+# --------------------------------------------------------------------------
+# Protect sensitive files
+# --------------------------------------------------------------------------
+<FilesMatch "(^\.htaccess|wp-config\.php|readme\.html|license\.txt)$">
+  Require all denied
+</FilesMatch>

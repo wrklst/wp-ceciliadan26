@@ -13,11 +13,9 @@
 
   @if ($pagination())
     <footer>
-      <nav class="page-nav" aria-label="Page">
+      <nav class="page-nav" aria-label="{{ __('Page navigation', 'sage') }}">
         {!! $pagination !!}
       </nav>
     </footer>
   @endif
-
-  @php(comments_template())
 </article>
