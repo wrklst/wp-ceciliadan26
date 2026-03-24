@@ -3,8 +3,8 @@
 /**
  * SEO, Open Graph, and JSON-LD structured data.
  *
- * Replaces the need for SEO plugins with ~100 lines of targeted code.
- * All values use proper escaping for their output context.
+ * Replaces the need for SEO plugins. All values use proper escaping
+ * for their output context.
  */
 
 namespace App;
@@ -89,16 +89,16 @@ add_action('wp_footer', function () {
         '@id' => home_url('/#website'),
         'url' => home_url('/'),
         'name' => get_bloginfo('name', 'raw'),
-        'inLanguage' => get_locale(),
+        'inLanguage' => 'en-US',
     ];
 
-    // Organization schema on every page
+    // ProfessionalService schema on every page
     $schema[] = [
-        '@type' => 'Organization',
+        '@type' => 'ProfessionalService',
         '@id' => home_url('/#organization'),
         'name' => 'Cecilia Dan Fine Art',
         'url' => home_url('/'),
-        'description' => 'Art advisory, appraisals, collection management, and charitable donation consulting for collectors, family offices, institutions, and estates.',
+        'description' => 'Cecilia Dan Fine Art partners with collectors, family offices, institutions, and estates to make confident, informed decisions in the art market. Based in Santa Monica, the firm provides trusted guidance on acquisitions, collection strategy, and appraisals throughout Los Angeles and nationally.',
         'address' => [
             '@type' => 'PostalAddress',
             'postOfficeBoxNumber' => '3210',
@@ -107,28 +107,76 @@ add_action('wp_footer', function () {
             'postalCode' => '90403',
             'addressCountry' => 'US',
         ],
+        'geo' => [
+            '@type' => 'GeoCoordinates',
+            'latitude' => 34.0195,
+            'longitude' => -118.4912,
+        ],
         'telephone' => '+1-310-435-6870',
         'email' => 'cecilia.dan@mac.com',
         'founder' => ['@id' => home_url('/#person')],
-        'knowsAbout' => [
-            'Modern Art',
-            'Contemporary Art',
-            'Art Appraisals',
-            'Collection Management',
-            'Art Advisory',
-            'USPAP Appraisals',
-            'Charitable Art Donations',
-        ],
-        'memberOf' => [
+        'areaServed' => [
             [
-                '@type' => 'Organization',
-                'name' => 'Association of Professional Art Advisors',
-                'alternateName' => 'APAA',
+                '@type' => 'City',
+                'name' => 'Los Angeles',
             ],
             [
-                '@type' => 'Organization',
-                'name' => 'American Society of Appraisers',
-                'alternateName' => 'ASA',
+                '@type' => 'City',
+                'name' => 'Santa Monica',
+            ],
+            [
+                '@type' => 'State',
+                'name' => 'California',
+            ],
+            [
+                '@type' => 'Country',
+                'name' => 'United States',
+            ],
+        ],
+        'knowsAbout' => [
+            'Modern and Contemporary Fine Art',
+            'Art Advisory',
+            'Art Acquisitions and Deaccessions',
+            'Fine Art Appraisals',
+            'USPAP-Compliant Appraisals',
+            'Collection Management',
+            'Collection Strategy',
+            'Charitable Art Donations',
+            'Estate Art Appraisals',
+            'Provenance Research',
+        ],
+        'hasOfferCatalog' => [
+            '@type' => 'OfferCatalog',
+            'name' => 'Art Advisory Services',
+            'itemListElement' => [
+                [
+                    '@type' => 'Offer',
+                    'itemOffered' => [
+                        '@type' => 'Service',
+                        'name' => 'Advising',
+                    ],
+                ],
+                [
+                    '@type' => 'Offer',
+                    'itemOffered' => [
+                        '@type' => 'Service',
+                        'name' => 'Appraisals',
+                    ],
+                ],
+                [
+                    '@type' => 'Offer',
+                    'itemOffered' => [
+                        '@type' => 'Service',
+                        'name' => 'Collection Management',
+                    ],
+                ],
+                [
+                    '@type' => 'Offer',
+                    'itemOffered' => [
+                        '@type' => 'Service',
+                        'name' => 'Charitable Donations',
+                    ],
+                ],
             ],
         ],
     ];
@@ -141,6 +189,7 @@ add_action('wp_footer', function () {
             'name' => 'Cecilia Dan',
             'url' => home_url('/'),
             'jobTitle' => 'Art Advisor & Accredited Senior Appraiser',
+            'description' => 'With over three decades of experience in the art market, Cecilia Dan provides expert guidance to collectors, family offices, institutions, and estates navigating acquisitions, deaccessions, valuations, and long-term collection strategy in Los Angeles and nationally.',
             'worksFor' => ['@id' => home_url('/#organization')],
             'alumniOf' => [
                 [
@@ -154,21 +203,77 @@ add_action('wp_footer', function () {
                     'department' => 'Drucker School of Management',
                 ],
             ],
+            'hasCredential' => [
+                [
+                    '@type' => 'EducationalOccupationalCredential',
+                    'credentialCategory' => 'degree',
+                    'name' => 'BA in Art History (cum laude)',
+                ],
+                [
+                    '@type' => 'EducationalOccupationalCredential',
+                    'credentialCategory' => 'degree',
+                    'name' => 'MBA in Arts Management',
+                ],
+                [
+                    '@type' => 'EducationalOccupationalCredential',
+                    'credentialCategory' => 'certificate',
+                    'name' => 'Certificate in Appraisal Studies (UCI)',
+                ],
+                [
+                    '@type' => 'EducationalOccupationalCredential',
+                    'credentialCategory' => 'professional',
+                    'name' => 'Accredited Senior Appraiser (ASA)',
+                ],
+            ],
             'knowsAbout' => [
-                'Modern Art',
-                'Contemporary Art',
-                'Art Appraisals',
+                'Modern and Contemporary Fine Art',
                 'Art Advisory',
-                'Collection Management',
+                'Art Acquisitions and Deaccessions',
+                'Fine Art Appraisals',
                 'USPAP Standards',
+                'Collection Strategy',
+                'Collection Management',
                 'Charitable Art Donations',
-                'Estate Appraisals',
+                'Estate Planning and Appraisals',
+                'Provenance Research',
+                'Los Angeles Art Market',
+            ],
+            'memberOf' => [
+                [
+                    '@type' => 'Organization',
+                    'name' => 'Association of Professional Art Advisors',
+                    'alternateName' => 'APAA',
+                ],
+                [
+                    '@type' => 'Organization',
+                    'name' => 'American Society of Appraisers',
+                    'alternateName' => 'ASA',
+                ],
+            ],
+            'affiliation' => [
+                [
+                    '@type' => 'Organization',
+                    'name' => 'Hammer Museum',
+                    'description' => 'Hammer Circle',
+                ],
+                [
+                    '@type' => 'Organization',
+                    'name' => 'Los Angeles County Museum of Art',
+                    'alternateName' => 'LACMA',
+                    'description' => 'Patron',
+                ],
+                [
+                    '@type' => 'Organization',
+                    'name' => 'Museum of Contemporary Art, Los Angeles',
+                    'alternateName' => 'MOCA',
+                    'description' => "Director's Forum",
+                ],
             ],
             'sameAs' => [
-                // Add when available:
-                // 'https://www.instagram.com/ceciliadanfineart/',
-                // 'https://www.linkedin.com/in/ceciliadan/',
-                // 'https://www.apaaonline.com/' (APAA directory link),
+                'https://www.instagram.com/ceciliadan/',
+                'https://www.linkedin.com/in/cecilia-dan-73a32b4/',
+                'https://www.artadvisors.org/art-advisor-directory/p/cecilia-dan',
+                'https://x.com/carbonmesa',
             ],
             // 'image' => get_theme_file_uri('resources/images/cecilia-dan.jpg'),
         ];
@@ -183,7 +288,7 @@ add_action('wp_footer', function () {
                 'name' => get_bloginfo('name', 'raw'),
                 'mainEntity' => ['@id' => home_url('/#person')],
                 'mainEntityOfPage' => home_url('/'),
-                'inLanguage' => get_locale(),
+                'inLanguage' => 'en-US',
                 'dateCreated' => get_the_date('c', get_option('page_on_front')),
                 'dateModified' => get_the_modified_date('c', get_option('page_on_front')),
             ];
@@ -194,20 +299,20 @@ add_action('wp_footer', function () {
     if (is_page('services')) {
         $services = [
             [
-                'name' => 'Art Advisory & Acquisitions',
-                'description' => 'Strategic guidance on acquisitions, artist identification, and collection building for collectors at every level. Includes market research, due diligence, negotiation, and access to work before it reaches the open market.',
+                'name' => 'Advising',
+                'description' => 'Whether beginning a collection or refining an established one, collectors benefit from strategic guidance tailored to their vision and goals. Cecilia Dan Fine Art helps clients navigate acquisitions, identify opportunities, and make decisions with confidence. Deep market knowledge and an extensive network ensure access to exceptional work and trusted intelligence.',
             ],
             [
-                'name' => 'Art Appraisals',
-                'description' => 'USPAP-compliant professional appraisals for insurance, estate planning, charitable donations, equitable distribution, and market value consultation. Accredited Senior Appraiser (ASA) designation.',
+                'name' => 'Appraisals',
+                'description' => 'Accurate appraisals are essential for insurance, estate planning, financing, and sales. Cecilia Dan Fine Art provides professional appraisals that meet USPAP standards and reflect current market conditions. Valuations are thorough, well-documented, and tailored to specific client needs.',
             ],
             [
                 'name' => 'Collection Management',
-                'description' => 'Comprehensive collection stewardship including cataloging, documentation, conservation coordination, exhibition management, storage logistics, and long-term strategic planning.',
+                'description' => 'Managing a collection requires organization, oversight, and strategic planning. Cecilia Dan Fine Art provides comprehensive collection management services, from cataloging and documentation to conservation planning and exhibition coordination. Collections are kept well-maintained, properly documented, and positioned for the future.',
             ],
             [
-                'name' => 'Charitable Donation Consulting',
-                'description' => 'Guidance on donating artwork to museums and nonprofits, including institution selection, IRS compliance, qualified appraisals, and coordination with tax advisors to maximize philanthropic and financial impact.',
+                'name' => 'Charitable Donations',
+                'description' => 'Donating artwork to museums or nonprofits can provide significant tax benefits while supporting institutions of importance to the donor. Cecilia Dan Fine Art guides clients through the entire process, from identifying the right institutions to ensuring proper documentation and valuation. Experience in this area helps maximize both the philanthropic and financial impact of gifts.',
             ],
         ];
 
@@ -218,8 +323,18 @@ add_action('wp_footer', function () {
                 'description' => $service['description'],
                 'provider' => ['@id' => home_url('/#organization')],
                 'areaServed' => [
-                    '@type' => 'Country',
-                    'name' => 'United States',
+                    [
+                        '@type' => 'City',
+                        'name' => 'Los Angeles',
+                    ],
+                    [
+                        '@type' => 'State',
+                        'name' => 'California',
+                    ],
+                    [
+                        '@type' => 'Country',
+                        'name' => 'United States',
+                    ],
                 ],
             ];
         }
@@ -326,8 +441,6 @@ function get_og_image(): ?array
 
 /**
  * Check if the current page should be noindexed.
- *
- * Add page slugs to exclude from search engine indexing.
  */
 function is_noindex_page(): bool
 {
