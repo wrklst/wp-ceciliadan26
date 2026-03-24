@@ -1,42 +1,47 @@
+@php
+  $contact = get_field('contact_details', 'option');
+  $profiles = get_field('profiles', 'option');
+  $text = get_field('text_snippets', 'option');
+@endphp
+
 <footer class="content-info">
   {{-- a. Contact details --}}
   <div class="footer-contact">
-    @if ($businessName = get_field('footer_business_name', 'option'))
-      <p class="footer-business-name">{{ $businessName }}</p>
+    @if ($contact['business_name'] ?? false)
+      <p class="footer-business-name">{{ $contact['business_name'] }}</p>
     @endif
 
-    @if ($address = get_field('footer_address', 'option'))
-      <address>{!! $address !!}</address>
+    @if ($contact['address'] ?? false)
+      <address>{{ $contact['address'] }}</address>
     @endif
 
-    @if ($footerEmail = get_field('footer_email', 'option'))
-      <a href="mailto:{{ antispambot($footerEmail) }}">
-        {{ antispambot($footerEmail) }}
+    @if ($contact['email'] ?? false)
+      <a href="mailto:{{ antispambot($contact['email']) }}">
+        {{ antispambot($contact['email']) }}
       </a>
     @endif
 
-    @if ($footerContactLink = get_field('footer_contact_link', 'option'))
-      <a href="{{ esc_url($footerContactLink) }}">
-        {{ __('Contact Form', 'sage') }}
+    @if ($contact['phone'] ?? false)
+      <a href="tel:{{ preg_replace('/[^+\d]/', '', $contact['phone']) }}">
+        {{ $contact['phone'] }}
       </a>
     @endif
   </div>
 
   {{-- b. Tagline --}}
-  @if ($footerTagline = get_field('footer_tagline', 'option'))
-    <p class="footer-tagline">{{ $footerTagline }}</p>
+  @if ($text['tagline'] ?? false)
+    <p class="footer-tagline">{{ $text['tagline'] }}</p>
   @endif
 
   {{-- c. Disclaimer --}}
-  @if ($footerDisclaimer = get_field('footer_disclaimer', 'option'))
-    <p class="footer-disclaimer">{{ $footerDisclaimer }}</p>
+  @if ($text['disclaimer'] ?? false)
+    <p class="footer-disclaimer">{{ $text['disclaimer'] }}</p>
   @endif
 
   {{-- d. Membership logos --}}
   <div class="footer-memberships">
-    @if ($apaaUrl = get_field('footer_apaa_url', 'option'))
-      <a href="{{ esc_url($apaaUrl) }}" target="_blank" rel="noopener" aria-label="{{ __('Association of Professional Art Advisors (opens in new tab)', 'sage') }}">
-        {{-- APAA logo: add SVG or img to resources/images/apaa-logo.svg --}}
+    @if ($profiles['apaa'] ?? false)
+      <a href="{{ esc_url($profiles['apaa']) }}" target="_blank" rel="noopener" aria-label="{{ __('Association of Professional Art Advisors (opens in new tab)', 'sage') }}">
         @if (file_exists(get_theme_file_path('resources/images/apaa-logo.svg')))
           <img src="{{ Vite::asset('resources/images/apaa-logo.svg') }}" alt="APAA" loading="lazy" decoding="async">
         @else
@@ -45,9 +50,8 @@
       </a>
     @endif
 
-    @if ($asaUrl = get_field('footer_asa_url', 'option'))
-      <a href="{{ esc_url($asaUrl) }}" target="_blank" rel="noopener" aria-label="{{ __('American Society of Appraisers (opens in new tab)', 'sage') }}">
-        {{-- ASA logo: add SVG or img to resources/images/asa-logo.svg --}}
+    @if ($profiles['asa'] ?? false)
+      <a href="{{ esc_url($profiles['asa']) }}" target="_blank" rel="noopener" aria-label="{{ __('American Society of Appraisers (opens in new tab)', 'sage') }}">
         @if (file_exists(get_theme_file_path('resources/images/asa-logo.svg')))
           <img src="{{ Vite::asset('resources/images/asa-logo.svg') }}" alt="ASA" loading="lazy" decoding="async">
         @else
@@ -82,9 +86,7 @@
   @endif
 
   {{-- g. Copyright --}}
-  @if ($copyright = get_field('footer_copyright', 'option'))
-    <p class="footer-copyright">
-      <small>&copy; {{ str_replace('{year}', date('Y'), $copyright) }}</small>
-    </p>
-  @endif
+  <p class="footer-copyright">
+    <small>&copy; {{ date('Y') }} {{ $contact['business_name'] ?? 'Cecilia Dan Fine Art' }}. All rights reserved.</small>
+  </p>
 </footer>

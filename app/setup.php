@@ -91,6 +91,15 @@ add_action('after_setup_theme', function () {
 add_action('admin_menu', function () {
     remove_menu_page('edit.php');
     remove_menu_page('edit-comments.php');
+
+    global $menu;
+    foreach ($menu as $key => $item) {
+        if (($item[2] ?? '') === 'upload.php') {
+            unset($menu[$key]);
+            $menu[21] = $item;
+            break;
+        }
+    }
 });
 
 /**

@@ -23,13 +23,13 @@ add_action('acf/init', function () {
     }
 
     acf_add_options_page([
-        'page_title' => 'Site Settings',
-        'menu_title' => 'Site Settings',
-        'menu_slug' => 'site-settings',
+        'page_title' => 'Footer',
+        'menu_title' => 'Footer',
+        'menu_slug' => 'footer',
         'capability' => 'edit_posts',
         'redirect' => false,
         'icon_url' => 'dashicons-admin-generic',
-        'position' => 2,
+        'position' => 22,
     ]);
 });
 

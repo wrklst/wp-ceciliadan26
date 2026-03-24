@@ -3,77 +3,219 @@
     "title": "Footer",
     "fields": [
         {
-            "key": "field_footer_business_name",
-            "label": "Business Name",
-            "name": "footer_business_name",
-            "type": "text",
-            "default_value": "Cecilia Dan Fine Art"
+            "key": "field_69c29ef23fd81",
+            "label": "Contact Details",
+            "name": "contact_details",
+            "aria-label": "",
+            "type": "group",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "layout": "block",
+            "sub_fields": [
+                {
+                    "key": "field_footer_business_name",
+                    "label": "Business Name",
+                    "name": "business_name",
+                    "aria-label": "",
+                    "type": "text",
+                    "instructions": "",
+                    "required": 1,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "50",
+                        "class": "",
+                        "id": ""
+                    },
+                    "default_value": "",
+                    "maxlength": "",
+                    "allow_in_bindings": 0,
+                    "placeholder": "",
+                    "prepend": "",
+                    "append": ""
+                },
+                {
+                    "key": "field_footer_address",
+                    "label": "Address",
+                    "name": "address",
+                    "aria-label": "",
+                    "type": "text",
+                    "instructions": "",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "50",
+                        "class": "",
+                        "id": ""
+                    },
+                    "default_value": "",
+                    "maxlength": "",
+                    "allow_in_bindings": 0,
+                    "placeholder": "",
+                    "prepend": "",
+                    "append": ""
+                },
+                {
+                    "key": "field_footer_email",
+                    "label": "Email",
+                    "name": "email",
+                    "aria-label": "",
+                    "type": "email",
+                    "instructions": "",
+                    "required": 1,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "50",
+                        "class": "",
+                        "id": ""
+                    },
+                    "default_value": "",
+                    "allow_in_bindings": 0,
+                    "placeholder": "",
+                    "prepend": "",
+                    "append": ""
+                },
+                {
+                    "key": "field_69c29d1d1ae52",
+                    "label": "Phone",
+                    "name": "phone",
+                    "aria-label": "",
+                    "type": "text",
+                    "instructions": "",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "50",
+                        "class": "",
+                        "id": ""
+                    },
+                    "default_value": "",
+                    "maxlength": "",
+                    "allow_in_bindings": 0,
+                    "placeholder": "",
+                    "prepend": "",
+                    "append": ""
+                }
+            ]
         },
         {
-            "key": "field_footer_address",
-            "label": "Address",
-            "name": "footer_address",
-            "type": "textarea",
-            "instructions": "Mailing address. Each line break is preserved.",
-            "rows": 3,
-            "new_lines": "br",
-            "default_value": "P.O. Box 3210\nSanta Monica, CA 90403"
+            "key": "field_69c29f82c5bf9",
+            "label": "Profiles",
+            "name": "profiles",
+            "aria-label": "",
+            "type": "group",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "layout": "block",
+            "sub_fields": [
+                {
+                    "key": "field_footer_asa_url",
+                    "label": "ASA",
+                    "name": "asa",
+                    "aria-label": "",
+                    "type": "url",
+                    "instructions": "",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "50",
+                        "class": "",
+                        "id": ""
+                    },
+                    "default_value": "",
+                    "allow_in_bindings": 0,
+                    "placeholder": ""
+                },
+                {
+                    "key": "field_footer_apaa_url",
+                    "label": "APAA",
+                    "name": "apaa",
+                    "aria-label": "",
+                    "type": "url",
+                    "instructions": "",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "50",
+                        "class": "",
+                        "id": ""
+                    },
+                    "default_value": "",
+                    "allow_in_bindings": 1,
+                    "placeholder": ""
+                }
+            ]
         },
         {
-            "key": "field_footer_email",
-            "label": "Email",
-            "name": "footer_email",
-            "type": "email",
-            "instructions": "Linked contact email displayed in the footer."
-        },
-        {
-            "key": "field_footer_contact_link",
-            "label": "Contact Link",
-            "name": "footer_contact_link",
-            "type": "page_link",
-            "instructions": "Page or anchor link to the contact form.",
-            "post_type": ["page"],
-            "allow_null": 1,
-            "allow_archives": 0
-        },
-        {
-            "key": "field_footer_tagline",
-            "label": "Tagline",
-            "name": "footer_tagline",
-            "type": "text",
-            "instructions": "One-liner contextualizing the business.",
-            "placeholder": "e.g., Trusted guidance in the art market since 1990."
-        },
-        {
-            "key": "field_footer_disclaimer",
-            "label": "Disclaimer",
-            "name": "footer_disclaimer",
-            "type": "text",
-            "instructions": "Optional legal disclaimer. Leave empty to hide.",
-            "placeholder": "e.g., We do not accept artist submissions."
-        },
-        {
-            "key": "field_footer_asa_url",
-            "label": "ASA Profile URL",
-            "name": "footer_asa_url",
-            "type": "url",
-            "instructions": "Link to the American Society of Appraisers membership or directory page."
-        },
-        {
-            "key": "field_footer_apaa_url",
-            "label": "APAA Profile URL",
-            "name": "footer_apaa_url",
-            "type": "url",
-            "instructions": "Link to the APAA directory page.",
-            "default_value": "https://www.artadvisors.org/art-advisor-directory/p/cecilia-dan"
-        },
-        {
-            "key": "field_footer_copyright",
-            "label": "Copyright",
-            "name": "footer_copyright",
-            "type": "text",
-            "instructions": "Copyright text. Use {year} as a placeholder for the current year.",
-            "default_value": "{year} Cecilia Dan Fine Art. All rights reserved."
+            "key": "field_69c29ff0279f8",
+            "label": "Text Snippets",
+            "name": "text_snippets",
+            "aria-label": "",
+            "type": "group",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "layout": "block",
+            "sub_fields": [
+                {
+                    "key": "field_footer_tagline",
+                    "label": "Tagline",
+                    "name": "tagline",
+                    "aria-label": "",
+                    "type": "text",
+                    "instructions": "",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "50",
+                        "class": "",
+                        "id": ""
+                    },
+                    "default_value": "",
+                    "maxlength": "",
+                    "allow_in_bindings": 0,
+                    "placeholder": "",
+                    "prepend": "",
+                    "append": ""
+                },
+                {
+                    "key": "field_footer_disclaimer",
+                    "label": "Disclaimer",
+                    "name": "disclaimer",
+                    "aria-label": "",
+                    "type": "text",
+                    "instructions": "",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "50",
+                        "class": "",
+                        "id": ""
+                    },
+                    "default_value": "",
+                    "maxlength": "",
+                    "allow_in_bindings": 0,
+                    "placeholder": "",
+                    "prepend": "",
+                    "append": ""
+                }
+            ]
         }
     ],
     "location": [
@@ -81,14 +223,19 @@
             {
                 "param": "options_page",
                 "operator": "==",
-                "value": "site-settings"
+                "value": "footer"
             }
         ]
     ],
     "menu_order": 0,
     "position": "normal",
-    "style": "default",
+    "style": "seamless",
     "label_placement": "top",
     "instruction_placement": "label",
-    "active": true
+    "hide_on_screen": "",
+    "active": true,
+    "description": "",
+    "show_in_rest": 0,
+    "display_title": "",
+    "modified": 1774362753
 }
