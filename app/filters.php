@@ -96,9 +96,20 @@ add_filter('document_title_parts', function ($title) {
 });
 
 /**
- * Disable default WordPress image sizes not used by the theme.
+ * Image sizes.
  *
- * Only keeps sizes explicitly registered by the theme.
+ * Minimal set for an art advisory site: small (mobile/cards),
+ * medium (content images), large (hero/retina). ShortPixel
+ * handles WebP/AVIF conversion for all sizes.
+ */
+add_action('after_setup_theme', function () {
+    add_image_size('content-small', 640, 9999, false);
+    add_image_size('content-medium', 1280, 9999, false);
+    add_image_size('content-large', 1920, 9999, false);
+}, 25);
+
+/**
+ * Disable default WordPress image sizes not used by the theme.
  */
 add_filter('intermediate_image_sizes_advanced', function ($sizes) {
     unset($sizes['thumbnail']);
@@ -112,19 +123,25 @@ add_filter('intermediate_image_sizes_advanced', function ($sizes) {
 });
 
 /**
- * Filter unused default widths from srcset at render time.
- *
- * Prevents legacy uploads (before the size filter above) from
- * including widths the theme never uses.
+ * Add custom sizes to the Media Library picker.
+ */
+add_filter('image_size_names_choose', function ($sizes) {
+    return array_merge($sizes, [
+        'content-small' => __('Small (640px)', 'sage'),
+        'content-medium' => __('Medium (1280px)', 'sage'),
+        'content-large' => __('Large (1920px)', 'sage'),
+    ]);
+});
+
+/**
+ * Filter srcset to only include our registered widths.
  */
 add_filter('wp_calculate_image_srcset', function ($sources) {
-    $remove_widths = [150, 300, 768, 1024, 1536, 2048];
+    $allowed_widths = [640, 1280, 1920];
 
-    foreach ($remove_widths as $width) {
-        unset($sources[$width]);
-    }
-
-    return $sources;
+    return array_filter($sources, function ($source) use ($allowed_widths) {
+        return in_array((int) $source['value'], $allowed_widths, true);
+    });
 });
 
 /**
@@ -140,7 +157,7 @@ add_filter('wp_editor_set_quality', function ($quality, $mime_type) {
 }, 10, 2);
 
 /**
- * Increase the big image threshold for portfolio images.
+ * Big image threshold — keep originals up to 3840px.
  */
 add_filter('big_image_size_threshold', function () {
     return 3840;
