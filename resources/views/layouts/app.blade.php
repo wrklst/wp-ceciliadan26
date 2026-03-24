@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="color-scheme" content="light">
     <meta name="format-detection" content="telephone=no, date=no, email=no, address=no">
+    <link rel="preload" as="font" type="font/woff2" href="{{ Vite::asset('resources/fonts/source-serif-4-latin-400.woff2') }}" crossorigin>
     @php(do_action('get_header'))
     @php(wp_head())
 
