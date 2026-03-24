@@ -68,6 +68,8 @@ add_action('after_setup_theme', function () {
 
     register_nav_menus([
         'primary_navigation' => __('Primary Navigation', 'sage'),
+        'footer_navigation' => __('Footer Sitemap', 'sage'),
+        'legal_navigation' => __('Legal Links', 'sage'),
     ]);
 
     add_theme_support('title-tag');
@@ -76,13 +78,10 @@ add_action('after_setup_theme', function () {
     add_theme_support('html5', [
         'caption',
         'gallery',
-        'search-form',
         'script',
         'style',
     ]);
 
-    // Disable comments site-wide
-    remove_post_type_support('post', 'comments');
     remove_post_type_support('page', 'comments');
 }, 20);
 
@@ -146,7 +145,6 @@ add_action('init', function () {
     remove_action('admin_print_scripts', 'print_emoji_detection_script');
     remove_action('admin_print_styles', 'print_emoji_styles');
     remove_filter('the_content_feed', 'wp_staticize_emoji');
-    remove_filter('comment_text_rss', 'wp_staticize_emoji');
     remove_filter('wp_mail', 'wp_staticize_emoji_for_email');
     add_filter('emoji_svg_url', '__return_false');
 

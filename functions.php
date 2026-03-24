@@ -49,7 +49,7 @@ Application::configure()
 |
 */
 
-collect(['setup', 'filters', 'seo', 'security'])
+collect(['setup', 'filters', 'seo', 'security', 'fields'])
     ->each(function ($file) {
         if (! locate_template($file = "app/{$file}.php", true, true)) {
             wp_die(

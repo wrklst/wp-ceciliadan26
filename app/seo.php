@@ -448,7 +448,7 @@ function is_noindex_page(): bool
         return false;
     }
 
-    $noindex_slugs = ['privacy-policy', 'terms-of-service', 'legal'];
+    $noindex_slugs = ['site-notice', 'privacy-policy', 'terms-of-service', 'legal'];
     $post = get_post();
 
     return $post && in_array($post->post_name, $noindex_slugs, true);

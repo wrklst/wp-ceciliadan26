@@ -38,11 +38,8 @@ RewriteRule . /index.php [L]
   # Referrer policy
   Header always set Referrer-Policy "strict-origin-when-cross-origin"
 
-  # Cross-Origin-Opener-Policy
-  Header always set Cross-Origin-Opener-Policy "same-origin"
-
-  # Permissions Policy — deny unused browser APIs
-  Header always set Permissions-Policy "accelerometer=(), autoplay=(), camera=(), cross-origin-isolated=(), display-capture=(), encrypted-media=(), fullscreen=(), geolocation=(), gyroscope=(), keyboard-map=(), magnetometer=(), microphone=(), midi=(), payment=(), picture-in-picture=(), publickey-credentials-get=(), screen-wake-lock=(), sync-xhr=(), usb=(), xr-spatial-tracking=(), browsing-topics=()"
+  # CSP, COOP, and Permissions-Policy are set in app/security.php
+  # to avoid duplication with PHP-generated headers.
 </IfModule>
 
 # --------------------------------------------------------------------------

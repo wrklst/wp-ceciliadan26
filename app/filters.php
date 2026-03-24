@@ -170,7 +170,7 @@ add_filter('big_image_size_threshold', function () {
  */
 add_filter('wp_sitemaps_posts_query_args', function ($args, $post_type) {
     if ($post_type === 'page') {
-        $exclude_slugs = ['privacy-policy', 'terms-of-service', 'legal'];
+        $exclude_slugs = ['site-notice', 'privacy-policy', 'terms-of-service', 'legal'];
 
         $exclude_ids = array_filter(array_map(function ($slug) {
             $page = get_page_by_path($slug);
