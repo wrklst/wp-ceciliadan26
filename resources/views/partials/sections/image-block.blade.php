@@ -15,9 +15,14 @@
         'decoding' => 'async',
       ]) !!}
 
-      @if (get_sub_field('caption'))
+      @if (get_sub_field('caption') || get_sub_field('photo_credit'))
         <figcaption>
-          {{ get_sub_field('caption') }}
+          @if (get_sub_field('caption'))
+            {{ get_sub_field('caption') }}
+          @endif
+          @if (get_sub_field('photo_credit'))
+            <span class="photo-credit">{{ get_sub_field('photo_credit') }}</span>
+          @endif
         </figcaption>
       @endif
     </figure>

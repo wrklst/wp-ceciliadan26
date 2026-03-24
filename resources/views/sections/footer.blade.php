@@ -43,7 +43,7 @@
     @if ($profiles['apaa'] ?? false)
       <a href="{{ esc_url($profiles['apaa']) }}" target="_blank" rel="noopener" aria-label="{{ __('Association of Professional Art Advisors (opens in new tab)', 'sage') }}">
         @if (file_exists(get_theme_file_path('resources/images/apaa-logo.svg')))
-          <img src="{{ Vite::asset('resources/images/apaa-logo.svg') }}" alt="APAA" loading="lazy" decoding="async">
+          <img src="{{ Vite::asset('resources/images/apaa-logo.svg') }}" alt="APAA" width="120" height="44" loading="lazy" decoding="async">
         @else
           <span>APAA</span>
         @endif
@@ -53,7 +53,7 @@
     @if ($profiles['asa'] ?? false)
       <a href="{{ esc_url($profiles['asa']) }}" target="_blank" rel="noopener" aria-label="{{ __('American Society of Appraisers (opens in new tab)', 'sage') }}">
         @if (file_exists(get_theme_file_path('resources/images/asa-logo.svg')))
-          <img src="{{ Vite::asset('resources/images/asa-logo.svg') }}" alt="ASA" loading="lazy" decoding="async">
+          <img src="{{ Vite::asset('resources/images/asa-logo.svg') }}" alt="ASA" width="120" height="44" loading="lazy" decoding="async">
         @else
           <span>ASA</span>
         @endif

@@ -11,8 +11,6 @@ export default defineConfig({
       input: [
         'resources/css/app.css',
         'resources/js/app.js',
-        'resources/css/editor.css',
-        'resources/js/editor.js',
       ],
       refresh: true,
     }),

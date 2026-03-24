@@ -14,15 +14,15 @@
           </summary>
 
           <div class="accordion-content">
-            @if (get_sub_field('lead_text'))
+            @if (get_sub_field('lead'))
               <p class="lead">
-                {!! get_sub_field('lead_text') !!}
+                {!! get_sub_field('lead') !!}
               </p>
             @endif
 
-            @if (get_sub_field('copy_text'))
+            @if (get_sub_field('copy'))
               <div class="prose">
-                {!! get_sub_field('copy_text') !!}
+                {!! get_sub_field('copy') !!}
               </div>
             @endif
           </div>

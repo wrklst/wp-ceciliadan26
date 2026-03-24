@@ -5,9 +5,9 @@
     </h2>
   @endif
 
-  @if (get_sub_field('content'))
+  @if (get_sub_field('copy'))
     <div class="prose">
-      {!! get_sub_field('content') !!}
+      {!! get_sub_field('copy') !!}
     </div>
   @endif
 </section>
