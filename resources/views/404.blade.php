@@ -1,13 +1,9 @@
 @extends('layouts.app')
 
 @section('content')
-  @include('partials.page-header')
+  <h1>{{ __('Page not found', 'sage') }}</h1>
 
-  @if (! have_posts())
-    <x-alert type="warning">
-      {!! __('Sorry, but the page you are trying to view does not exist.', 'sage') !!}
-    </x-alert>
+  <p>{{ __('The page you are looking for does not exist.', 'sage') }}</p>
 
-    {!! get_search_form(false) !!}
-  @endif
+  <a href="{{ home_url('/') }}">{{ __('Return to the homepage', 'sage') }}</a>
 @endsection

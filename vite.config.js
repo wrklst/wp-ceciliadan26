@@ -4,7 +4,7 @@ import laravel from 'laravel-vite-plugin'
 import { wordpressPlugin, wordpressThemeJson } from '@roots/vite-plugin';
 
 export default defineConfig({
-  base: '/wp-content/themes/ceciliadan26/public/build/',
+  base: '/wp-content/themes/cecilia-dan-fine-art-theme/public/build/',
   plugins: [
     tailwindcss(),
     laravel({

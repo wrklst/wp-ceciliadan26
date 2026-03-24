@@ -80,7 +80,47 @@ add_action('after_setup_theme', function () {
         'script',
         'style',
     ]);
+
+    // Disable comments site-wide
+    remove_post_type_support('post', 'comments');
+    remove_post_type_support('page', 'comments');
 }, 20);
+
+/**
+ * Remove Posts and Comments from the admin.
+ */
+add_action('admin_menu', function () {
+    remove_menu_page('edit.php');
+    remove_menu_page('edit-comments.php');
+});
+
+/**
+ * Remove Comments from the admin bar.
+ */
+add_action('wp_before_admin_bar_render', function () {
+    global $wp_admin_bar;
+    $wp_admin_bar->remove_menu('comments');
+    $wp_admin_bar->remove_menu('new-post');
+});
+
+/**
+ * Disable comments on the frontend.
+ */
+add_filter('comments_open', '__return_false');
+add_filter('pings_open', '__return_false');
+
+/**
+ * Remove the Posts post type from REST API public routes.
+ */
+add_filter('register_post_type_args', function ($args, $post_type) {
+    if ($post_type === 'post') {
+        $args['public'] = false;
+        $args['show_ui'] = false;
+        $args['show_in_rest'] = false;
+    }
+
+    return $args;
+}, 10, 2);
 
 /**
  * Clean up wp_head output.

@@ -27,10 +27,7 @@ add_filter('rest_authentication_errors', function ($result) {
 
     $public_routes = [
         '/wp/v2/pages',
-        '/wp/v2/posts',
         '/wp/v2/media',
-        '/wp/v2/categories',
-        '/wp/v2/tags',
     ];
 
     $request_uri = $_SERVER['REQUEST_URI'] ?? '';

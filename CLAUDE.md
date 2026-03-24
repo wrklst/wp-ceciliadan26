@@ -1,6 +1,6 @@
-# Cecilia Dan — Portfolio Theme
+# Cecilia Dan Fine Art — Theme
 
-Personal portfolio/website for Cecilia Dan, built as a custom WordPress theme on the Roots stack.
+Website for Cecilia Dan Fine Art, an art advisory and appraisal firm based in Santa Monica, Los Angeles. Built as a custom WordPress theme on the Roots stack.
 
 ## Tech Stack
 
@@ -11,6 +11,7 @@ Personal portfolio/website for Cecilia Dan, built as a custom WordPress theme on
 - **Vite** 7.3 + **Tailwind CSS** 4.2 — frontend build pipeline
 - **Laravel Blade** — templating engine
 - **ACF Pro** — custom fields (plugin installed)
+- **Classic Editor** — plugin installed
 - **Laravel Herd** — local development environment
 
 ## Project Structure
@@ -22,9 +23,10 @@ ceciliadan/                     ← WP root (NOT a git repo)
 ├── robots.txt                  ← Copy from theme's robots.txt template
 ├── wp-content/
 │   ├── plugins/
-│   │   └── advanced-custom-fields-pro/
+│   │   ├── advanced-custom-fields-pro/
+│   │   └── classic-editor/
 │   ├── themes/
-│   │   └── ceciliadan26/       ← Theme directory (git repo root)
+│   │   └── cecilia-dan-fine-art-theme/  ← Theme directory (git repo root)
 │   │       ├── app/
 │   │       │   ├── setup.php           ← Theme setup, wp_head cleanup, bloat removal
 │   │       │   ├── filters.php         ← Security filters, image pipeline, SEO title
@@ -76,7 +78,7 @@ ceciliadan/                     ← WP root (NOT a git repo)
 │   │       ├── theme.json              ← Source theme.json (preprocessed by Vite)
 │   │       ├── functions.php           ← Boots Acorn + loads setup/filters/seo
 │   │       └── style.css               ← WP theme header only
-│   ├── languages/                      ← de_DE translations (German locale)
+│   ├── languages/                      ← de_DE translations (dev locale only)
 │   └── uploads/
 ```
 
@@ -86,7 +88,7 @@ ceciliadan/                     ← WP root (NOT a git repo)
 
 - **setup.php** — `after_setup_theme` (nav menus, theme support, block editor injection), `init` (wp_head cleanup: generator, RSD, WLW, shortlink, feeds, emoji, global styles, SVG filters), `wp_enqueue_scripts` (dequeue block CSS, deregister speculation rules)
 - **filters.php** — Security (XML-RPC disable, REST API auth restriction, user enumeration blocking, oEmbed author stripping), SEO (title separator `–`, front page title cleanup), Image pipeline (disable default sizes, srcset width filtering, per-format quality, big image threshold 3840px), Sitemap (exclude noindex pages)
-- **seo.php** — Meta description (ACF field → excerpt → trimmed content fallback chain), Open Graph (title, type, url, site_name, locale, description, image with full metadata), Twitter/X cards, noindex for legal pages, JSON-LD structured data (WebSite schema on all pages, Person + ProfilePage on front page)
+- **seo.php** — Meta description (ACF field → excerpt → trimmed content fallback), Open Graph (full metadata), Twitter/X cards, noindex for legal pages, JSON-LD structured data (ProfessionalService + Person + ProfilePage + Service schemas with LA/Santa Monica geo targeting)
 
 ### CSS Foundation (app.css)
 
@@ -102,18 +104,24 @@ ceciliadan/                     ← WP root (NOT a git repo)
 - **Application**: XML-RPC disabled via filter, REST API restricted to authenticated users (with public route allowlist), /wp/v2/users endpoint removed, author archives redirect to home, oEmbed author data stripped
 - **wp-config.php**: File editing disabled, revisions capped, debug logging to file only
 
+### Accessibility
+
+- **Target**: WCAG 2.2 AAA (exceeds California WCAG 2.2 AA mandate)
+- **Legal basis**: Unruh Civil Rights Act (Civil Code § 51), ADA Title III, Gov. Code §§ 7405, 11135, 11546.7
+- **Key checks**: 24x24px touch targets (SC 2.5.8), focus not obscured (SC 2.4.11), no CAPTCHA without alternative (SC 3.3.8)
+
 ## Conventions
 
 - **Indent**: 2 spaces for Blade/CSS/JS, 4 spaces for PHP (per `.editorconfig`)
 - **Text domain**: `sage`
-- **Locale**: `de_DE` (German)
+- **Site language**: English (US) — dev environment uses de_DE locale
 - **CSS**: Tailwind 4 utility-first, `@import "tailwindcss" theme(static)` in `app.css`
 - **Views**: Blade templates in `resources/views/`, auto-discovered by Acorn
 - **Composers**: View composers in `app/View/Composers/`, extend `Roots\Acorn\View\Composer`
-- **Assets**: Vite handles CSS/JS/fonts/images, base path `wp-content/themes/ceciliadan26/public/build/`
+- **Assets**: Vite handles CSS/JS/fonts/images, base path `wp-content/themes/cecilia-dan-fine-art-theme/public/build/`
 - **SEO**: No plugin — meta/OG/JSON-LD handled in `app/seo.php`. ACF `meta_description` field supported for per-page descriptions.
 - **Image quality**: AVIF 68, WebP 80, JPEG 82. Big image threshold 3840px for portfolio work.
-- **Noindex pages**: Slugs `impressum`, `datenschutz`, `imprint`, `privacy-policy` are noindexed and excluded from sitemap.
+- **Noindex pages**: Slugs `privacy-policy`, `terms-of-service`, `legal` are noindexed and excluded from sitemap.
 
 ## Build Commands
 
@@ -133,4 +141,5 @@ npm run build   # Production build to public/build/
 - [ ] Add `define('DISABLE_WP_CRON', true)` and set up system crontab
 - [ ] Install and configure Modern Image Formats plugin for AVIF/WebP
 - [ ] Self-host fonts: add WOFF2 files to `resources/fonts/`, add `@font-face` declarations with preload
+- [ ] Create Google Business Profile for Cecilia Dan Fine Art
 - [ ] Verify all pages with Google Rich Results Test and opengraph.xyz
