@@ -22,4 +22,12 @@ class App extends Composer
     {
         return get_bloginfo('name', 'display');
     }
+
+    /**
+     * Retrieve the CSP nonce for inline scripts.
+     */
+    public function cspNonce(): string
+    {
+        return function_exists('App\\get_csp_nonce') ? \App\get_csp_nonce() : '';
+    }
 }
