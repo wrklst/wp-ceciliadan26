@@ -199,6 +199,11 @@ add_filter('big_image_size_threshold', function () {
 });
 
 /**
+ * Disable WP auto-sizes and its inline CSS.
+ */
+add_filter('wp_img_tag_add_auto_sizes', '__return_false');
+
+/**
  * Disable WordPress default sitemap for pages that should not be indexed.
  *
  * Excludes legal/utility pages from the sitemap. Add page slugs as needed.
