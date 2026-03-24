@@ -15,19 +15,17 @@
   <body @php(body_class())>
     @php(wp_body_open())
 
-    <div id="app">
-      <a class="sr-only focus:not-sr-only" href="#main">
-        {{ __('Skip to content', 'sage') }}
-      </a>
+    <a class="sr-only focus:not-sr-only" href="#main">
+      {{ __('Skip to content', 'sage') }}
+    </a>
 
-      @include('sections.header')
+    @include('sections.header')
 
-      <main id="main" class="main">
-        @yield('content')
-      </main>
+    <main id="main" class="max-w-7xl mx-[5vw]">
+      @yield('content')
+    </main>
 
-      @include('sections.footer')
-    </div>
+    @include('sections.footer')
 
     {{-- Matomo Analytics (cookieless, deferred to idle, Trusted Types compatible) --}}
     <script nonce="{{ $cspNonce }}">
