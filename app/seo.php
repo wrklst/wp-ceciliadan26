@@ -408,11 +408,11 @@ function get_og_image(): ?array
 
     // Fall back to default OG image
     if (! $image_id) {
-        $og_path = get_theme_file_path('resources/images/og-image.jpg');
+        $og_path = get_theme_file_path('og-image.jpg');
 
         if (file_exists($og_path)) {
             return [
-                'url' => get_theme_file_uri('resources/images/og-image.jpg'),
+                'url' => get_theme_file_uri('og-image.jpg'),
                 'width' => '1200',
                 'height' => '630',
                 'type' => 'image/jpeg',
