@@ -78,6 +78,41 @@ add_filter('oembed_response_data', function ($data) {
 });
 
 /**
+ * Add target="_blank" and rel="noopener" to external links in content.
+ */
+add_filter('the_content', __NAMESPACE__ . '\\externalize_links');
+add_filter('acf_the_content', __NAMESPACE__ . '\\externalize_links');
+
+function externalize_links(string $content): string
+{
+    if (! $content) {
+        return $content;
+    }
+
+    $site_host = wp_parse_url(home_url(), PHP_URL_HOST);
+
+    return preg_replace_callback('/<a\s([^>]*href=["\']https?:\/\/[^"\']+["\'][^>]*)>/i', function ($matches) use ($site_host) {
+        $tag = $matches[0];
+
+        if (preg_match('/href=["\']https?:\/\/([^"\'\/]+)/i', $tag, $href)) {
+            $link_host = $href[1];
+
+            if ($link_host !== $site_host && ! str_ends_with($link_host, '.' . $site_host)) {
+                if (! str_contains($tag, 'target=')) {
+                    $tag = str_replace('<a ', '<a target="_blank" ', $tag);
+                }
+
+                if (! str_contains($tag, 'rel=')) {
+                    $tag = str_replace('<a ', '<a rel="noopener" ', $tag);
+                }
+            }
+        }
+
+        return $tag;
+    }, $content);
+}
+
+/**
  * Customize the title separator.
  */
 add_filter('document_title_separator', function () {
