@@ -8,7 +8,7 @@
   {{-- a. Contact details --}}
   <div class="footer-contact">
     @if ($contact['business_name'] ?? false)
-      <p class="footer-business-name">{{ $contact['business_name'] }}</p>
+      <p id="contact">{{ $contact['business_name'] }}</p>
     @endif
 
     @if ($contact['address'] ?? false)
@@ -63,7 +63,7 @@
 
   {{-- e. Sitemap navigation --}}
   @if (has_nav_menu('footer_navigation'))
-    <nav class="footer-nav" aria-label="{{ __('Sitemap', 'sage') }}">
+    <nav aria-label="{{ wp_get_nav_menu_name('footer_navigation') }}">
       {!! wp_nav_menu([
         'theme_location' => 'footer_navigation',
         'menu_class' => 'footer-menu',
@@ -75,7 +75,7 @@
 
   {{-- f. Legal links --}}
   @if (has_nav_menu('legal_navigation'))
-    <nav class="footer-legal" aria-label="{{ __('Legal', 'sage') }}">
+    <nav aria-label="{{ wp_get_nav_menu_name('legal_navigation') }}">
       {!! wp_nav_menu([
         'theme_location' => 'legal_navigation',
         'menu_class' => 'legal-menu',

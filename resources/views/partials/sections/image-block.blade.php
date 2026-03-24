@@ -1,6 +1,6 @@
 @php($imageId = get_sub_field('image'))
 
-<section>
+<section @if (get_sub_field('hash')) id="{{ get_sub_field('hash') }}" @endif>
   @if (get_sub_field('headline'))
     <h2 class="{{ get_sub_field('headline_visible') ? 'text-lg' : 'sr-only' }}">
       {{ get_sub_field('headline') }}

@@ -33,7 +33,28 @@
                             "required": 0,
                             "conditional_logic": 0,
                             "wrapper": {
-                                "width": "75",
+                                "width": "50",
+                                "class": "",
+                                "id": ""
+                            },
+                            "default_value": "",
+                            "maxlength": "",
+                            "allow_in_bindings": 0,
+                            "placeholder": "",
+                            "prepend": "",
+                            "append": ""
+                        },
+                        {
+                            "key": "field_69c2f7656a416",
+                            "label": "Hash",
+                            "name": "hash",
+                            "aria-label": "",
+                            "type": "text",
+                            "instructions": "",
+                            "required": 0,
+                            "conditional_logic": 0,
+                            "wrapper": {
+                                "width": "25",
                                 "class": "",
                                 "id": ""
                             },
@@ -106,7 +127,28 @@
                             "required": 0,
                             "conditional_logic": 0,
                             "wrapper": {
-                                "width": "75",
+                                "width": "50",
+                                "class": "",
+                                "id": ""
+                            },
+                            "default_value": "",
+                            "maxlength": "",
+                            "allow_in_bindings": 0,
+                            "placeholder": "",
+                            "prepend": "",
+                            "append": ""
+                        },
+                        {
+                            "key": "field_69c2f7976a417",
+                            "label": "Hash",
+                            "name": "hash",
+                            "aria-label": "",
+                            "type": "text",
+                            "instructions": "",
+                            "required": 0,
+                            "conditional_logic": 0,
+                            "wrapper": {
+                                "width": "25",
                                 "class": "",
                                 "id": ""
                             },
@@ -226,7 +268,28 @@
                             "required": 0,
                             "conditional_logic": 0,
                             "wrapper": {
-                                "width": "75",
+                                "width": "50",
+                                "class": "",
+                                "id": ""
+                            },
+                            "default_value": "",
+                            "maxlength": "",
+                            "allow_in_bindings": 0,
+                            "placeholder": "",
+                            "prepend": "",
+                            "append": ""
+                        },
+                        {
+                            "key": "field_69c2f7b16a418",
+                            "label": "Hash",
+                            "name": "hash",
+                            "aria-label": "",
+                            "type": "text",
+                            "instructions": "",
+                            "required": 0,
+                            "conditional_logic": 0,
+                            "wrapper": {
+                                "width": "25",
                                 "class": "",
                                 "id": ""
                             },
@@ -389,7 +452,28 @@
                             "required": 0,
                             "conditional_logic": 0,
                             "wrapper": {
-                                "width": "75",
+                                "width": "50",
+                                "class": "",
+                                "id": ""
+                            },
+                            "default_value": "",
+                            "maxlength": "",
+                            "allow_in_bindings": 0,
+                            "placeholder": "",
+                            "prepend": "",
+                            "append": ""
+                        },
+                        {
+                            "key": "field_69c2f7e16a419",
+                            "label": "Hash",
+                            "name": "hash",
+                            "aria-label": "",
+                            "type": "text",
+                            "instructions": "",
+                            "required": 0,
+                            "conditional_logic": 0,
+                            "wrapper": {
+                                "width": "25",
                                 "class": "",
                                 "id": ""
                             },
@@ -573,7 +657,28 @@
                             "required": 0,
                             "conditional_logic": 0,
                             "wrapper": {
-                                "width": "75",
+                                "width": "50",
+                                "class": "",
+                                "id": ""
+                            },
+                            "default_value": "",
+                            "maxlength": "",
+                            "allow_in_bindings": 0,
+                            "placeholder": "",
+                            "prepend": "",
+                            "append": ""
+                        },
+                        {
+                            "key": "field_69c2f7ff6a41a",
+                            "label": "Hash",
+                            "name": "hash",
+                            "aria-label": "",
+                            "type": "text",
+                            "instructions": "",
+                            "required": 0,
+                            "conditional_logic": 0,
+                            "wrapper": {
+                                "width": "25",
                                 "class": "",
                                 "id": ""
                             },
@@ -710,6 +815,7 @@
                                     "max": 0,
                                     "rows_per_page": 20,
                                     "collapsed": "",
+                                    "parent_repeater": "field_list_block_groups",
                                     "sub_fields": [
                                         {
                                             "key": "field_list_item_name",
@@ -752,8 +858,7 @@
                                             "placeholder": "",
                                             "parent_repeater": "field_list_group_items"
                                         }
-                                    ],
-                                    "parent_repeater": "field_list_block_groups"
+                                    ]
                                 }
                             ]
                         }
@@ -788,5 +893,5 @@
     "description": "",
     "show_in_rest": 0,
     "display_title": "",
-    "modified": 1774379591
+    "modified": 1774385174
 }

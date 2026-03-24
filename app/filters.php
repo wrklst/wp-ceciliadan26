@@ -61,7 +61,7 @@ add_filter('rest_endpoints', function ($endpoints) {
  * Block user enumeration via ?author=N query parameter.
  */
 add_action('template_redirect', function () {
-    if (is_author()) {
+    if (is_404() || is_author()) {
         wp_safe_redirect(home_url('/'), 301);
         exit;
     }
