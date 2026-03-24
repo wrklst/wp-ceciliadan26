@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-  <h1>{{ __('Page not found', 'sage') }}</h1>
+  <h1 class="text-lg">{{ __('Page not found', 'sage') }}</h1>
 
   <p>{{ __('The page you are looking for does not exist.', 'sage') }}</p>
 

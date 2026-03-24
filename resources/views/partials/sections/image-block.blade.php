@@ -2,7 +2,7 @@
 
 <section>
   @if (get_sub_field('headline'))
-    <h2 @unless (get_sub_field('headline_visible')) class="sr-only" @endunless>
+    <h2 class="{{ get_sub_field('headline_visible') ? 'text-lg' : 'sr-only' }}">
       {{ get_sub_field('headline') }}
     </h2>
   @endif
