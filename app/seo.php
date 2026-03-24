@@ -13,19 +13,19 @@ namespace App;
  * Output meta description and Open Graph tags in wp_head.
  */
 add_action('wp_head', function () {
-    $description = get_meta_description();
     $is_noindex = is_noindex_page();
+
+    if ($is_noindex) {
+        return;
+    }
+
+    $description = get_meta_description();
 
     if ($description) {
         printf(
             '<meta name="description" content="%s">' . "\n",
             esc_attr($description)
         );
-    }
-
-    // Skip OG tags on noindexed pages
-    if ($is_noindex) {
-        return;
     }
 
     $title = wp_get_document_title();
@@ -358,10 +358,6 @@ add_action('wp_footer', function () {
  */
 function get_meta_description(): string
 {
-    if (is_front_page()) {
-        return get_bloginfo('description', 'display');
-    }
-
     if (is_singular()) {
         $post = get_post();
 
@@ -369,7 +365,7 @@ function get_meta_description(): string
             return '';
         }
 
-        // Use ACF field if available
+        // ACF field takes priority
         if (function_exists('get_field')) {
             $custom = get_field('meta_description', $post->ID);
 
@@ -378,7 +374,12 @@ function get_meta_description(): string
             }
         }
 
-        // Fall back to excerpt or trimmed content
+        // Front page falls back to WP tagline
+        if (is_front_page()) {
+            return get_bloginfo('description', 'display');
+        }
+
+        // Other pages fall back to excerpt or trimmed content
         if ($post->post_excerpt) {
             return wp_strip_all_tags($post->post_excerpt);
         }

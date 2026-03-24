@@ -1,0 +1,94 @@
+{
+    "key": "group_footer",
+    "title": "Footer",
+    "fields": [
+        {
+            "key": "field_footer_business_name",
+            "label": "Business Name",
+            "name": "footer_business_name",
+            "type": "text",
+            "default_value": "Cecilia Dan Fine Art"
+        },
+        {
+            "key": "field_footer_address",
+            "label": "Address",
+            "name": "footer_address",
+            "type": "textarea",
+            "instructions": "Mailing address. Each line break is preserved.",
+            "rows": 3,
+            "new_lines": "br",
+            "default_value": "P.O. Box 3210\nSanta Monica, CA 90403"
+        },
+        {
+            "key": "field_footer_email",
+            "label": "Email",
+            "name": "footer_email",
+            "type": "email",
+            "instructions": "Linked contact email displayed in the footer."
+        },
+        {
+            "key": "field_footer_contact_link",
+            "label": "Contact Link",
+            "name": "footer_contact_link",
+            "type": "page_link",
+            "instructions": "Page or anchor link to the contact form.",
+            "post_type": ["page"],
+            "allow_null": 1,
+            "allow_archives": 0
+        },
+        {
+            "key": "field_footer_tagline",
+            "label": "Tagline",
+            "name": "footer_tagline",
+            "type": "text",
+            "instructions": "One-liner contextualizing the business.",
+            "placeholder": "e.g., Trusted guidance in the art market since 1990."
+        },
+        {
+            "key": "field_footer_disclaimer",
+            "label": "Disclaimer",
+            "name": "footer_disclaimer",
+            "type": "text",
+            "instructions": "Optional legal disclaimer. Leave empty to hide.",
+            "placeholder": "e.g., We do not accept artist submissions."
+        },
+        {
+            "key": "field_footer_asa_url",
+            "label": "ASA Profile URL",
+            "name": "footer_asa_url",
+            "type": "url",
+            "instructions": "Link to the American Society of Appraisers membership or directory page."
+        },
+        {
+            "key": "field_footer_apaa_url",
+            "label": "APAA Profile URL",
+            "name": "footer_apaa_url",
+            "type": "url",
+            "instructions": "Link to the APAA directory page.",
+            "default_value": "https://www.artadvisors.org/art-advisor-directory/p/cecilia-dan"
+        },
+        {
+            "key": "field_footer_copyright",
+            "label": "Copyright",
+            "name": "footer_copyright",
+            "type": "text",
+            "instructions": "Copyright text. Use {year} as a placeholder for the current year.",
+            "default_value": "{year} Cecilia Dan Fine Art. All rights reserved."
+        }
+    ],
+    "location": [
+        [
+            {
+                "param": "options_page",
+                "operator": "==",
+                "value": "site-settings"
+            }
+        ]
+    ],
+    "menu_order": 0,
+    "position": "normal",
+    "style": "default",
+    "label_placement": "top",
+    "instruction_placement": "label",
+    "active": true
+}
