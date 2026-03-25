@@ -100,6 +100,27 @@
                     "placeholder": "",
                     "prepend": "",
                     "append": ""
+                },
+                {
+                    "key": "field_69c3ea221ed6c",
+                    "label": "Call-to-Action",
+                    "name": "call-to-action",
+                    "aria-label": "",
+                    "type": "wysiwyg",
+                    "instructions": "",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "default_value": "",
+                    "allow_in_bindings": 0,
+                    "tabs": "all",
+                    "toolbar": "basic",
+                    "media_upload": 0,
+                    "delay": 0
                 }
             ]
         },
@@ -237,5 +258,5 @@
     "description": "",
     "show_in_rest": 0,
     "display_title": "",
-    "modified": 1774362753
+    "modified": 1774449180
 }

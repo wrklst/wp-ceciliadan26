@@ -83,6 +83,27 @@ add_filter('oembed_response_data', function ($data) {
 add_filter('the_content', __NAMESPACE__ . '\\externalize_links');
 add_filter('acf_the_content', __NAMESPACE__ . '\\externalize_links');
 
+/**
+ * Add target="_blank" and rel="noopener" to external links in nav menus.
+ */
+add_filter('nav_menu_link_attributes', function ($atts) {
+    $url = $atts['href'] ?? '';
+
+    if (! $url || ! str_starts_with($url, 'http')) {
+        return $atts;
+    }
+
+    $site_host = wp_parse_url(home_url(), PHP_URL_HOST);
+    $link_host = wp_parse_url($url, PHP_URL_HOST);
+
+    if ($link_host && $link_host !== $site_host && ! str_ends_with($link_host, '.' . $site_host)) {
+        $atts['target'] = '_blank';
+        $atts['rel'] = 'noopener';
+    }
+
+    return $atts;
+});
+
 function externalize_links(string $content): string
 {
     if (! $content) {
