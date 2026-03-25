@@ -174,7 +174,7 @@ add_action('wp_footer', function () {
                     '@type' => 'Offer',
                     'itemOffered' => [
                         '@type' => 'Service',
-                        'name' => 'Charitable Donations',
+                        'name' => 'Charitable Donation Consulting',
                     ],
                 ],
             ],
@@ -311,7 +311,7 @@ add_action('wp_footer', function () {
                 'description' => 'Managing a collection requires organization, oversight, and strategic planning. Cecilia Dan Fine Art provides comprehensive collection management services, from cataloging and documentation to conservation planning and exhibition coordination. Collections are kept well-maintained, properly documented, and positioned for the future.',
             ],
             [
-                'name' => 'Charitable Donations',
+                'name' => 'Charitable Donation Consulting',
                 'description' => 'Donating artwork to museums or nonprofits can provide significant tax benefits while supporting institutions of importance to the donor. Cecilia Dan Fine Art guides clients through the entire process, from identifying the right institutions to ensuring proper documentation and valuation. Experience in this area helps maximize both the philanthropic and financial impact of gifts.',
             ],
         ];
