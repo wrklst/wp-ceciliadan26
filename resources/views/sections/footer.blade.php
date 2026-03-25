@@ -4,7 +4,7 @@
   $text = get_field('text_snippets', 'option');
 @endphp
 
-<footer class="max-w-7xl mx-[5vw]">
+<footer class="max-w-7xl mx-auto">
   {{-- a. Contact details --}}
   <div class="footer-contact">
     @if ($contact['business_name'] ?? false)

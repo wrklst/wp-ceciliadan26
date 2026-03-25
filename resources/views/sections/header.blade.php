@@ -1,4 +1,4 @@
-<header class="max-w-7xl mx-[5vw]">
+<header class="max-w-7xl mx-auto">
   <a class="brand" href="{{ home_url('/') }}">
     {!! $siteName !!}
   </a>
