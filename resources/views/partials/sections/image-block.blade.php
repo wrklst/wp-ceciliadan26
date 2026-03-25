@@ -1,30 +1,33 @@
-@php($imageId = get_sub_field('image'))
+@php
+  $imageId = get_sub_field('image');
+  $caption = get_sub_field('caption');
+  $credit = get_sub_field('photo_credit');
+  $creditLink = get_sub_field('photo_credit_link');
+@endphp
 
-<section @if (get_sub_field('hash')) id="{{ get_sub_field('hash') }}" @endif>
-  @if (get_sub_field('headline'))
-    <h2 class="{{ get_sub_field('headline_visible') ? 'text-[1.125rem]' : 'sr-only' }}">
-      {{ get_sub_field('headline') }}
-    </h2>
+<section class="my-16">
+  @if ($caption)
+    <h2 class="sr-only">{{ $caption }}</h2>
   @endif
+  <figure class="mx-auto max-w-[50rem]">
+    {!! wp_get_attachment_image($imageId, 'content-large', false, [
+      'sizes' => '(max-width: 50rem) calc(100vw - clamp(2.5rem, 10vw, 5rem)), 50rem',
+      'loading' => 'eager',
+      'decoding' => 'auto',
+      'fetchpriority' => 'high',
+    ]) !!}
 
-  @if ($imageId)
-    <figure>
-      {!! wp_get_attachment_image($imageId, 'content-large', false, [
-        'sizes' => '(max-width: 640px) 100vw, (max-width: 1280px) 100vw, 1920px',
-        'loading' => 'lazy',
-        'decoding' => 'async',
-      ]) !!}
-
-      @if (get_sub_field('caption') || get_sub_field('photo_credit'))
-        <figcaption>
-          @if (get_sub_field('caption'))
-            {{ get_sub_field('caption') }}
-          @endif
-          @if (get_sub_field('photo_credit'))
-            <span class="photo-credit">{{ get_sub_field('photo_credit') }}</span>
-          @endif
-        </figcaption>
-      @endif
-    </figure>
-  @endif
+    @if ($caption)
+      <figcaption class="mt-2 font-sans text-[0.75rem] sm:flex sm:justify-between">
+        <span class="font-semibold">{{ $caption }}</span>
+        @if ($creditLink)
+          <a href="{{ esc_url($creditLink) }}" target="_blank" rel="noopener">
+            Photo: {{ $credit }} <span class="sr-only">{{ __('(opens in new tab)', 'sage') }}</span>
+          </a>
+        @else
+          <span>Photo: {{ $credit }}</span>
+        @endif
+      </figcaption>
+    @endif
+  </figure>
 </section>

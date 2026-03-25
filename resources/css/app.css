@@ -93,6 +93,11 @@ a {
     text-underline-offset: 4px;
     text-decoration-skip-ink: none;
   }
+
+  .font-sans a:hover,
+  a.font-sans:hover {
+    text-decoration-thickness: 1px;
+  }
 }
 
 /* Focus indicators — WCAG 2.4.13 compliant */
