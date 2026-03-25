@@ -27,7 +27,6 @@ add_action('after_setup_theme', function () {
     register_nav_menus([
         'primary_navigation' => __('Primary Navigation', 'sage'),
         'footer_navigation' => __('Footer Sitemap', 'sage'),
-        'legal_navigation' => __('Legal Links', 'sage'),
     ]);
 
     add_theme_support('title-tag');

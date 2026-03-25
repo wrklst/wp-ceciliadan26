@@ -6,6 +6,7 @@
     <meta name="color-scheme" content="light">
     <meta name="format-detection" content="telephone=no, date=no, email=no, address=no">
     <link rel="preload" as="font" type="font/woff2" href="{{ Vite::asset('resources/fonts/source-serif-4-latin-400.woff2') }}" crossorigin>
+    <link rel="preload" as="font" type="font/woff2" href="{{ Vite::asset('resources/fonts/inter-latin.woff2') }}" crossorigin>
     @php(do_action('get_header'))
     @php(wp_head())
 
@@ -15,14 +16,14 @@
   <body @php(body_class())>
     @php(wp_body_open())
 
-    <div class="px-[5vw]">
+    <div class="min-h-dvh flex flex-col max-w-7xl mx-auto px-[5vw]">
       <a class="sr-only focus:not-sr-only" href="#main">
         {{ __('Skip to content', 'sage') }}
       </a>
 
       @include('sections.header')
 
-      <main id="main" class="max-w-7xl mx-auto">
+      <main id="main" class="grow">
         @yield('content')
       </main>
 
