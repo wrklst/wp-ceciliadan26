@@ -12,6 +12,7 @@ Website for Cecilia Dan Fine Art, an art advisory and appraisal firm based in Sa
 - **Laravel Blade** — templating engine
 - **ACF Pro** — custom fields (plugin installed)
 - **Classic Editor** — plugin installed
+- **ShortPixel Image Optimizer** 6.4.4 — Glossy compression, AVIF/WebP generation, .htaccess delivery
 - **Laravel Herd** — local development environment
 
 ## Project Structure
@@ -24,7 +25,8 @@ ceciliadan/                     ← WP root (NOT a git repo)
 ├── wp-content/
 │   ├── plugins/
 │   │   ├── advanced-custom-fields-pro/
-│   │   └── classic-editor/
+│   │   ├── classic-editor/
+│   │   └── shortpixel-image-optimiser/  ← AVIF/WebP generation + Glossy compression
 │   ├── themes/
 │   │   └── cecilia-dan-fine-art-theme/  ← Theme directory (git repo root)
 │   │       ├── app/
@@ -100,7 +102,7 @@ ceciliadan/                     ← WP root (NOT a git repo)
 
 ### Security Layers
 
-- **Server**: .htaccess blocks XML-RPC, sets security headers (X-Content-Type-Options, X-Frame-Options, Referrer-Policy, COOP, Permissions-Policy), compression, caching
+- **Server**: .htaccess blocks XML-RPC, sets security headers (X-Content-Type-Options, X-Frame-Options, Referrer-Policy, COOP, Permissions-Policy), compression, caching, ShortPixel AVIF/WebP delivery via Accept header negotiation
 - **Application**: XML-RPC disabled via filter, REST API restricted to authenticated users (with public route allowlist), /wp/v2/users endpoint removed, author archives redirect to home, oEmbed author data stripped
 - **wp-config.php**: File editing disabled, revisions capped, debug logging to file only
 
@@ -120,7 +122,7 @@ ceciliadan/                     ← WP root (NOT a git repo)
 - **Composers**: View composers in `app/View/Composers/`, extend `Roots\Acorn\View\Composer`
 - **Assets**: Vite handles CSS/JS/fonts/images, base path `wp-content/themes/cecilia-dan-fine-art-theme/public/build/`
 - **SEO**: No plugin — meta/OG/JSON-LD handled in `app/seo.php`. ACF `meta_description` field supported for per-page descriptions.
-- **Image quality**: AVIF 68, WebP 80, JPEG 82. Big image threshold 3840px for portfolio work.
+- **Image pipeline**: WordPress generates sizes at AVIF 68, WebP 80, JPEG 82. ShortPixel re-optimizes with Glossy compression and generates AVIF/WebP variants. Delivery via .htaccess Accept header negotiation (mode 3). Big image threshold 3840px for portfolio work.
 - **Noindex pages**: Slugs `privacy-policy`, `terms-of-service`, `legal` are noindexed and excluded from sitemap.
 
 ## Build Commands
@@ -139,7 +141,7 @@ npm run build   # Production build to public/build/
 - [ ] Set `WP_DEBUG` to `false`, `WP_DEBUG_LOG` to `false` in production wp-config
 - [ ] Add `FORCE_SSL_ADMIN` to production wp-config
 - [ ] Add `define('DISABLE_WP_CRON', true)` and set up system crontab
-- [ ] Install and configure Modern Image Formats plugin for AVIF/WebP
+- [x] ShortPixel Image Optimizer 6.4.4 — Glossy compression, AVIF/WebP generation, .htaccess delivery (mode 3)
 - [ ] Self-host fonts: add WOFF2 files to `resources/fonts/`, add `@font-face` declarations with preload
 - [ ] Create Google Business Profile for Cecilia Dan Fine Art
 - [ ] Verify all pages with Google Rich Results Test and opengraph.xyz

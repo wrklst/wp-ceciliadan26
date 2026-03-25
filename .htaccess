@@ -16,6 +16,36 @@ RewriteRule . /index.php [L]
 # END WordPress
 
 # --------------------------------------------------------------------------
+# ShortPixel — serve AVIF/WebP via Accept header negotiation
+# --------------------------------------------------------------------------
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+
+  # AVIF delivery (highest priority)
+  RewriteCond %{HTTP_ACCEPT} image/avif
+  RewriteCond %{REQUEST_URI} \.(jpe?g|png|gif|bmp|tiff?)$
+  RewriteCond %{DOCUMENT_ROOT}/$1.$2.avif -f
+  RewriteRule (.+)\.(jpe?g|png|gif|bmp|tiff?)$ $1.$2.avif [T=image/avif,L]
+
+  # WebP delivery (fallback)
+  RewriteCond %{HTTP_ACCEPT} image/webp
+  RewriteCond %{REQUEST_URI} \.(jpe?g|png|gif|bmp|tiff?)$
+  RewriteCond %{DOCUMENT_ROOT}/$1.$2.webp -f
+  RewriteRule (.+)\.(jpe?g|png|gif|bmp|tiff?)$ $1.$2.webp [T=image/webp,L]
+</IfModule>
+
+<IfModule mod_headers.c>
+  <FilesMatch "\.(jpe?g|png|gif|bmp|tiff?)$">
+    Header append Vary Accept
+  </FilesMatch>
+</IfModule>
+
+<IfModule mod_mime.c>
+  AddType image/avif .avif
+  AddType image/webp .webp
+</IfModule>
+
+# --------------------------------------------------------------------------
 # Block XML-RPC — no legitimate use cases remain
 # --------------------------------------------------------------------------
 <Files xmlrpc.php>
