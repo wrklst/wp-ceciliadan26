@@ -81,6 +81,7 @@ add_action('wp_head', function () {
  * Output JSON-LD structured data in wp_footer.
  */
 add_action('wp_footer', function () {
+    $contact = get_field('contact_details', 'option');
     $schema = [];
 
     // WebSite schema on every page
@@ -96,7 +97,7 @@ add_action('wp_footer', function () {
     $schema[] = [
         '@type' => 'ProfessionalService',
         '@id' => home_url('/#organization'),
-        'name' => 'Cecilia Dan Fine Art',
+        'name' => $contact['business_name'],
         'url' => home_url('/'),
         'description' => 'Cecilia Dan Fine Art partners with collectors, family offices, institutions, and estates to make confident, informed decisions in the art market. Based in Santa Monica, the firm provides trusted guidance on acquisitions, collection strategy, and appraisals throughout Los Angeles and nationally.',
         'address' => [
@@ -112,8 +113,8 @@ add_action('wp_footer', function () {
             'latitude' => 34.0195,
             'longitude' => -118.4912,
         ],
-        'telephone' => '+1-310-435-6870',
-        'email' => 'cecilia.dan@mac.com',
+        'telephone' => preg_replace('/[^+\d\-() ]/', '', $contact['phone']),
+        'email' => $contact['email'],
         'founder' => ['@id' => home_url('/#person')],
         'areaServed' => [
             [
