@@ -23,7 +23,7 @@
 
       @include('sections.header')
 
-      <main id="main" class="grow">
+      <main id="main" class="mb-32 grow">
         @yield('content')
       </main>
 

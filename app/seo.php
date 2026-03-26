@@ -226,7 +226,7 @@ add_action('wp_footer', function () {
                     'name' => 'Accredited Senior Appraiser (ASA)',
                 ],
             ],
-            'knowsAbout' => [
+            'knowsAbout' => array_merge([
                 'Modern and Contemporary Fine Art',
                 'Art Advisory',
                 'Art Acquisitions and Deaccessions',
@@ -238,7 +238,7 @@ add_action('wp_footer', function () {
                 'Estate Planning and Appraisals',
                 'Provenance Research',
                 'Los Angeles Art Market',
-            ],
+            ], get_artist_names()),
             'memberOf' => [
                 [
                     '@type' => 'Organization',
@@ -250,8 +250,6 @@ add_action('wp_footer', function () {
                     'name' => 'American Society of Appraisers',
                     'alternateName' => 'ASA',
                 ],
-            ],
-            'affiliation' => [
                 [
                     '@type' => 'Organization',
                     'name' => 'Hammer Museum',
@@ -270,6 +268,7 @@ add_action('wp_footer', function () {
                     'description' => "Director's Forum",
                 ],
             ],
+            'affiliation' => get_institution_affiliations(),
             'sameAs' => [
                 'https://www.instagram.com/ceciliadan/',
                 'https://www.linkedin.com/in/cecilia-dan-73a32b4/',
@@ -454,4 +453,79 @@ function is_noindex_page(): bool
     $post = get_post();
 
     return $post && in_array($post->post_name, $noindex_slugs, true);
+}
+
+/**
+ * Get reference data from the About page's list block.
+ *
+ * Parses the first list block's groups from ACF flexible content.
+ * Returns institutions as Schema.org Organization entries and
+ * artist names as plain strings. Cached via static variable.
+ */
+function get_reference_data(): array
+{
+    static $cache = null;
+
+    if ($cache !== null) {
+        return $cache;
+    }
+
+    $cache = ['affiliations' => [], 'artists' => []];
+    $about = get_page_by_path('about');
+
+    if (! $about || ! have_rows('content', $about->ID)) {
+        return $cache;
+    }
+
+    while (have_rows('content', $about->ID)) {
+        the_row();
+
+        if (get_row_layout() !== 'list_block' || ! have_rows('groups')) {
+            continue;
+        }
+
+        $groupIndex = 0;
+
+        while (have_rows('groups')) {
+            the_row();
+            $groupIndex++;
+
+            if (! have_rows('items')) {
+                continue;
+            }
+
+            while (have_rows('items')) {
+                the_row();
+                $name = wp_strip_all_tags(get_sub_field('name'));
+
+                if (! $name) {
+                    continue;
+                }
+
+                if ($groupIndex === 1) {
+                    $cache['affiliations'][] = [
+                        '@type' => 'Organization',
+                        'name' => $name,
+                    ];
+                } else {
+                    $cache['artists'][] = $name;
+                }
+            }
+        }
+
+        // Only use the first list block
+        break;
+    }
+
+    return $cache;
+}
+
+function get_institution_affiliations(): array
+{
+    return get_reference_data()['affiliations'];
+}
+
+function get_artist_names(): array
+{
+    return get_reference_data()['artists'];
 }

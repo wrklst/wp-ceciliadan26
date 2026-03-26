@@ -631,7 +631,7 @@
                             "aria-label": "",
                             "type": "text",
                             "instructions": "",
-                            "required": 0,
+                            "required": 1,
                             "conditional_logic": 0,
                             "wrapper": {
                                 "width": "50",
@@ -688,48 +688,6 @@
                             "ui": 1
                         },
                         {
-                            "key": "field_list_block_text",
-                            "label": "Text",
-                            "name": "text",
-                            "aria-label": "",
-                            "type": "wysiwyg",
-                            "instructions": "",
-                            "required": 0,
-                            "conditional_logic": 0,
-                            "wrapper": {
-                                "width": "75",
-                                "class": "",
-                                "id": ""
-                            },
-                            "default_value": "",
-                            "allow_in_bindings": 0,
-                            "tabs": "all",
-                            "toolbar": "basic",
-                            "media_upload": 0,
-                            "delay": 0
-                        },
-                        {
-                            "key": "field_list_block_text_visible",
-                            "label": "Text Visible",
-                            "name": "text_visible",
-                            "aria-label": "",
-                            "type": "true_false",
-                            "instructions": "",
-                            "required": 0,
-                            "conditional_logic": 0,
-                            "wrapper": {
-                                "width": "25",
-                                "class": "",
-                                "id": ""
-                            },
-                            "message": "",
-                            "default_value": 1,
-                            "allow_in_bindings": 0,
-                            "ui_on_text": "",
-                            "ui_off_text": "",
-                            "ui": 1
-                        },
-                        {
                             "key": "field_list_block_groups",
                             "label": "Groups",
                             "name": "groups",
@@ -757,7 +715,7 @@
                                     "aria-label": "",
                                     "type": "text",
                                     "instructions": "",
-                                    "required": 0,
+                                    "required": 1,
                                     "conditional_logic": 0,
                                     "wrapper": {
                                         "width": "",
@@ -801,10 +759,32 @@
                                             "aria-label": "",
                                             "type": "text",
                                             "instructions": "",
+                                            "required": 1,
+                                            "conditional_logic": 0,
+                                            "wrapper": {
+                                                "width": "34",
+                                                "class": "",
+                                                "id": ""
+                                            },
+                                            "default_value": "",
+                                            "maxlength": "",
+                                            "allow_in_bindings": 0,
+                                            "placeholder": "",
+                                            "prepend": "",
+                                            "append": "",
+                                            "parent_repeater": "field_list_group_items"
+                                        },
+                                        {
+                                            "key": "field_69c54ebd5844c",
+                                            "label": "Location",
+                                            "name": "location",
+                                            "aria-label": "",
+                                            "type": "text",
+                                            "instructions": "",
                                             "required": 0,
                                             "conditional_logic": 0,
                                             "wrapper": {
-                                                "width": "50",
+                                                "width": "33",
                                                 "class": "",
                                                 "id": ""
                                             },
@@ -826,7 +806,7 @@
                                             "required": 0,
                                             "conditional_logic": 0,
                                             "wrapper": {
-                                                "width": "50",
+                                                "width": "33",
                                                 "class": "",
                                                 "id": ""
                                             },
@@ -870,5 +850,5 @@
     "description": "",
     "show_in_rest": 0,
     "display_title": "",
-    "modified": 1774518535
+    "modified": 1774538544
 }
