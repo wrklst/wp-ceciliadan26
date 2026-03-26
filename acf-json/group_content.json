@@ -360,13 +360,35 @@
                                     "allow_in_bindings": 0,
                                     "rows": 3,
                                     "placeholder": "",
-                                    "new_lines": "br",
+                                    "new_lines": "wpautop",
                                     "parent_repeater": "field_accordion_block_items"
                                 },
                                 {
                                     "key": "field_accordion_item_copy_text",
                                     "label": "Copy",
                                     "name": "copy",
+                                    "aria-label": "",
+                                    "type": "wysiwyg",
+                                    "instructions": "",
+                                    "required": 0,
+                                    "conditional_logic": 0,
+                                    "wrapper": {
+                                        "width": "",
+                                        "class": "",
+                                        "id": ""
+                                    },
+                                    "default_value": "",
+                                    "allow_in_bindings": 0,
+                                    "tabs": "all",
+                                    "toolbar": "basic",
+                                    "media_upload": 0,
+                                    "delay": 0,
+                                    "parent_repeater": "field_accordion_block_items"
+                                },
+                                {
+                                    "key": "field_69c414a4b99f3",
+                                    "label": "Call-to-Action",
+                                    "name": "call-to-action",
                                     "aria-label": "",
                                     "type": "wysiwyg",
                                     "instructions": "",
@@ -848,5 +870,5 @@
     "description": "",
     "show_in_rest": 0,
     "display_title": "",
-    "modified": 1774452462
+    "modified": 1774458051
 }

@@ -1,45 +1,56 @@
-<section @if (get_sub_field('hash')) id="{{ get_sub_field('hash') }}" @endif>
-  @if (get_sub_field('headline'))
-    <h2 class="{{ get_sub_field('headline_visible') ? 'text-[1.125rem]' : 'sr-only' }}">
-      {{ get_sub_field('headline') }}
+@php
+  $hash = get_sub_field('hash');
+  $headline = get_sub_field('headline');
+  $visible = get_sub_field('headline_visible');
+@endphp
+
+<section class="my-16" @if ($hash) id="{{ $hash }}" @endif>
+  @if ($headline)
+    <h2 class="{{ $visible ? 'mb-2 text-[1.125rem]' : 'sr-only' }}">
+      {{ $headline }}
     </h2>
   @endif
 
   @if (have_rows('members'))
-    <div class="team">
-      @while (have_rows('members')) @php(the_row())
-        <details>
-          <summary>
-            <h3>{{ get_sub_field('name') }}</h3>
+    @while (have_rows('members'))
+      @php
+        the_row();
+        $name = get_sub_field('name');
+        $position = get_sub_field('position');
+        $email = get_sub_field('email');
+        $lead = get_sub_field('lead');
+        $copy = get_sub_field('copy');
+      @endphp
 
-            @if (get_sub_field('position'))
-              <p class="position">{{ get_sub_field('position') }}</p>
-            @endif
-          </summary>
+      <details class="border-t last:border-b">
+        <summary class="my-4 text-[1.5rem]">
+          <h3>{{ $name }}</h3>
+        </summary>
 
-          <div class="team-member-content">
-            @if (get_sub_field('email'))
-              <p>
-                <a href="mailto:{{ antispambot(get_sub_field('email')) }}">
-                  {{ antispambot(get_sub_field('email')) }}
-                </a>
-              </p>
-            @endif
+        @if ($position)
+          <p>{{ $position }}</p>
+        @endif
 
-            @if (get_sub_field('lead'))
-              <p class="lead">
-                {!! get_sub_field('lead') !!}
-              </p>
-            @endif
+        @if ($email)
+          <p>
+            <a href="mailto:{!! antispambot($email) !!}">
+              {!! antispambot($email) !!}
+            </a>
+          </p>
+        @endif
 
-            @if (get_sub_field('copy'))
-              <div class="prose">
-                {!! get_sub_field('copy') !!}
-              </div>
-            @endif
+        @if ($lead)
+          <div class="prose mt-4 font-semibold [&>p]:mb-0">
+            {!! $lead !!}
           </div>
-        </details>
-      @endwhile
-    </div>
+        @endif
+
+        @if ($copy)
+          <div class="prose mt-4 mb-6">
+            {!! $copy !!}
+          </div>
+        @endif
+      </details>
+    @endwhile
   @endif
 </section>

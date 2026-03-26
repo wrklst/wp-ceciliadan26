@@ -1,13 +1,20 @@
-<section @if (get_sub_field('hash')) id="{{ get_sub_field('hash') }}" @endif>
-  @if (get_sub_field('headline'))
-    <h2 class="{{ get_sub_field('headline_visible') ? 'text-[1.125rem]' : 'sr-only' }}">
-      {{ get_sub_field('headline') }}
+@php
+  $hash = get_sub_field('hash');
+  $headline = get_sub_field('headline');
+  $visible = get_sub_field('headline_visible');
+  $copy = get_sub_field('copy');
+@endphp
+
+<section class="my-16" @if ($hash) id="{{ $hash }}" @endif>
+  @if ($headline)
+    <h2 class="{{ $visible ? 'mb-2 text-[1.125rem]' : 'sr-only' }}">
+      {{ $headline }}
     </h2>
   @endif
 
-  @if (get_sub_field('copy'))
+  @if ($copy)
     <div class="prose">
-      {!! get_sub_field('copy') !!}
+      {!! $copy !!}
     </div>
   @endif
 </section>
