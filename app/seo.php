@@ -276,7 +276,7 @@ add_action('wp_footer', function () {
                 'https://www.artadvisors.org/art-advisor-directory/p/cecilia-dan',
                 'https://x.com/carbonmesa',
             ],
-            // 'image' => get_theme_file_uri('resources/images/cecilia-dan.jpg'),
+            'image' => get_theme_file_uri('resources/images/cecilia-dan.jpg'),
         ];
 
         $schema[] = $person;

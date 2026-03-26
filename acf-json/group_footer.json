@@ -46,7 +46,7 @@
                     "aria-label": "",
                     "type": "text",
                     "instructions": "",
-                    "required": 0,
+                    "required": 1,
                     "conditional_logic": 0,
                     "wrapper": {
                         "width": "50",
@@ -87,7 +87,7 @@
                     "aria-label": "",
                     "type": "text",
                     "instructions": "",
-                    "required": 0,
+                    "required": 1,
                     "conditional_logic": 0,
                     "wrapper": {
                         "width": "50",
@@ -293,5 +293,5 @@
     "description": "",
     "show_in_rest": 0,
     "display_title": "",
-    "modified": 1774516368
+    "modified": 1774518495
 }

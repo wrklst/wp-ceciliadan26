@@ -6,9 +6,7 @@
 @endphp
 
 <section class="my-16">
-  @if ($caption)
-    <h2 class="sr-only">{{ $caption }}</h2>
-  @endif
+  <h2 class="sr-only">{{ $caption }}</h2>
 
   <figure class="mx-auto max-w-[50rem]">
     {!! wp_get_attachment_image($imageId, 'content-large', false, [
@@ -18,9 +16,9 @@
       'fetchpriority' => 'high',
     ]) !!}
 
-    @if ($caption)
-      <figcaption class="mt-2 font-sans text-[0.75rem] sm:flex sm:justify-between">
-        <span class="font-semibold">{{ $caption }}</span>
+    <figcaption class="mt-2 font-sans text-[0.75rem] sm:flex sm:justify-between">
+      <span class="font-semibold">{{ $caption }}</span>
+      @if ($credit)
         @if ($creditLink)
           <a href="{{ esc_url($creditLink) }}" target="_blank" rel="noopener">
             Photo: {{ $credit }} <span class="sr-only">{{ __('(opens in new tab)', 'sage') }}</span>
@@ -28,7 +26,7 @@
         @else
           <span>Photo: {{ $credit }}</span>
         @endif
-      </figcaption>
-    @endif
+      @endif
+    </figcaption>
   </figure>
 </section>
