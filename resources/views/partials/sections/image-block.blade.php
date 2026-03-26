@@ -10,7 +10,7 @@
 
   <figure class="mx-auto max-w-[50rem]">
     {!! wp_get_attachment_image($imageId, 'content-large', false, [
-      'sizes' => '(max-width: 50rem) calc(100vw - clamp(2.5rem, 10vw, 5rem)), 50rem',
+      'sizes' => '(max-width: 50rem) calc(100vw - 3rem), 50rem',
       'loading' => 'eager',
       'decoding' => 'auto',
       'fetchpriority' => 'high',

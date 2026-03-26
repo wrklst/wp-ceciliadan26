@@ -16,7 +16,7 @@
   <body @php(body_class())>
     @php(wp_body_open())
 
-    <div class="min-h-dvh flex flex-col max-w-7xl mx-auto px-[clamp(1.25rem,5vw,2.5rem)]">
+    <div class="min-h-dvh flex flex-col max-w-7xl mx-auto px-6">
       <a class="sr-only focus:not-sr-only" href="#main">
         {{ __('Skip to content', 'sage') }}
       </a>

@@ -8,11 +8,11 @@
   $emailText = antispambot($contact['email']);
   $phone = $contact['phone'];
   $phoneTel = preg_replace('/[^+\d]/', '', $phone);
-  $apaaUrl = $profiles['apaa'];
-  $asaUrl = $profiles['asa'];
-  $cta = $text['call-to-action'];
-  $tagline = $text['tagline'];
-  $disclaimer = $text['disclaimer'];
+  $apaaUrl = $profiles['apaa'] ?? null;
+  $asaUrl = $profiles['asa'] ?? null;
+  $cta = $text['call-to-action'] ?? null;
+  $tagline = $text['tagline'] ?? null;
+  $disclaimer = $text['disclaimer'] ?? null;
   $now = new DateTime('now', new DateTimeZone('America/Los_Angeles'));
 @endphp
 
@@ -31,22 +31,28 @@
           {{ $phone }}
         </a>
       </address>
-      <div class="mt-4 min-h-11">
-        <p>
-          <a href="{{ esc_url($cta['link']['url']) }}">{{ $cta['link']['title'] }} <span class="sr-only">{{ __('(opens email client)', 'sage') }}</span></a>
-          {{ $cta['text_after'] }}
-        </p>
-        <time id="local-time" datetime="{{ $now->format('c') }}" class="font-sans text-[0.75rem]" aria-label="{{ __('Local business time', 'sage') }}">Local time at business: {{ $now->format('l, g:i A T') }}</time>
-      </div>
+      @if ($cta)
+        <div class="mt-4 min-h-11">
+          <p>
+            <a href="{{ esc_url($cta['link']['url']) }}">{{ $cta['link']['title'] }} <span class="sr-only">{{ __('(opens email client)', 'sage') }}</span></a>
+            {{ $cta['text_after'] }}
+          </p>
+          <time id="local-time" datetime="{{ $now->format('c') }}" class="font-sans text-[0.75rem]" aria-label="{{ __('Local business time', 'sage') }}">Local time at business: {{ $now->format('l, g:i A T') }}</time>
+        </div>
+      @endif
     </div>
 
     <div class="flex items-start gap-6 mt-12 md:mt-0.5">
-      <a href="{{ esc_url($apaaUrl) }}" target="_blank" rel="noopener me" aria-label="{{ __('Association of Professional Art Advisors (opens in new tab)', 'sage') }}" class="hover:opacity-70">
-        <img src="{{ Vite::asset('resources/images/apaa-logo.svg') }}" alt="APAA member" width="80" height="44" class="h-11 w-auto" loading="lazy" decoding="async">
-      </a>
-      <a href="{{ esc_url($asaUrl) }}" target="_blank" rel="noopener me" aria-label="{{ __('American Society of Appraisers (opens in new tab)', 'sage') }}" class="hover:opacity-70">
-        <img src="{{ Vite::asset('resources/images/asa-logo.svg') }}" alt="American Society of Appraisers" width="115" height="44" class="h-11 w-auto" loading="lazy" decoding="async">
-      </a>
+      @if ($apaaUrl)
+        <a href="{{ esc_url($apaaUrl) }}" target="_blank" rel="noopener me" aria-label="{{ __('Association of Professional Art Advisors (opens in new tab)', 'sage') }}" class="hover:opacity-70">
+          <img src="{{ Vite::asset('resources/images/apaa-logo.svg') }}" alt="APAA member" width="80" height="44" class="h-11 w-auto" loading="lazy" decoding="async">
+        </a>
+      @endif
+      @if ($asaUrl)
+        <a href="{{ esc_url($asaUrl) }}" target="_blank" rel="noopener me" aria-label="{{ __('American Society of Appraisers (opens in new tab)', 'sage') }}" class="hover:opacity-70">
+          <img src="{{ Vite::asset('resources/images/asa-logo.svg') }}" alt="American Society of Appraisers" width="115" height="44" class="h-11 w-auto" loading="lazy" decoding="async">
+        </a>
+      @endif
     </div>
   </div>
 
@@ -60,10 +66,16 @@
     ]) !!}
   </nav>
 
-  <aside class="my-4 font-sans text-[0.75rem]" aria-label="{{ __('About this firm', 'sage') }}">
-    <p>{{ $tagline }}</p>
-    <p>{{ $disclaimer }}</p>
-  </aside>
+  @if ($tagline || $disclaimer)
+    <aside class="my-4 font-sans text-[0.75rem]" aria-label="{{ __('About this firm', 'sage') }}">
+      @if ($tagline)
+        <p>{{ $tagline }}</p>
+      @endif
+      @if ($disclaimer)
+        <p>{{ $disclaimer }}</p>
+      @endif
+    </aside>
+  @endif
 
   <p class="font-sans text-[0.75rem] font-semibold">&copy; {{ $now->format('Y') }} {{ $businessName }}. All rights reserved.</p>
 </footer>
