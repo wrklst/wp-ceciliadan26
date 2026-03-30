@@ -79,6 +79,13 @@ body {
   text-wrap: pretty;
 }
 
+/* Small text — secondary/meta content */
+.small {
+  font-family: var(--font-sans);
+  font-size: 0.8rem;
+  line-height: 1.45;
+}
+
 /* Hide scrollbars while preserving scroll functionality */
 *,
 *::before,
@@ -104,19 +111,39 @@ a {
     text-decoration-skip-ink: none;
   }
 
-  .font-sans a:hover,
-  a.font-sans:hover {
+  .small a:hover,
+  a.small:hover {
     text-decoration-thickness: 1px;
+  }
+
+  .font-semibold a:hover,
+  a.font-semibold:hover,
+  .footer-menu > li > a:hover {
+    text-decoration-thickness: 1.5px;
   }
 }
 
 /* Accordion — details/summary */
+details {
+  cursor: pointer;
+}
+
 summary {
   list-style: none;
   min-height: 44px;
   display: flex;
   align-items: center;
-  cursor: pointer;
+  user-select: none;
+}
+
+summary:focus-visible {
+  outline: none;
+}
+
+summary:focus-visible h3 {
+  outline: 2px solid currentColor;
+  outline-offset: 2px;
+  border-radius: 0.5rem;
 }
 
 summary::-webkit-details-marker {
@@ -127,8 +154,6 @@ summary::-webkit-details-marker {
 /* Reference lists */
 .reference-list {
   margin-top: 0.5rem;
-  font-family: var(--font-sans);
-  font-size: 0.75rem;
 }
 
 .reference-list:first-of-type {

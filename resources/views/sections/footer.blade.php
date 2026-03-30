@@ -20,7 +20,7 @@
   <div class="mt-4 mb-16 md:flex md:items-start md:justify-between">
     <div>
       <address id="contact" class="flex flex-col items-start" aria-label="{{ __('Contact information', 'sage') }}">
-        <span>{{ $businessName }}</span>
+        <span class="font-semibold">{{ $businessName }}</span>
         <a href="https://maps.apple.com/?q={{ urlencode($address) }}" target="_blank" rel="noopener">
           {{ $address }} <span class="sr-only">{{ __('(opens in new tab)', 'sage') }}</span>
         </a>
@@ -37,7 +37,7 @@
             <a href="{{ esc_url($cta['link']['url']) }}">{{ $cta['link']['title'] }} <span class="sr-only">{{ __('(opens email client)', 'sage') }}</span></a>
             {{ $cta['text_after'] }}
           </p>
-          <time id="local-time" datetime="{{ $now->format('c') }}" class="font-sans text-[0.75rem]" aria-label="{{ __('Local business time', 'sage') }}">Local time at business: {{ $now->format('l, g:i A T') }}</time>
+          <time id="local-time" datetime="{{ $now->format('c') }}" class="small font-semibold" aria-label="{{ __('Local business time', 'sage') }}">Local time at business: {{ $now->format('l, g:i A T') }}</time>
         </div>
       @endif
     </div>
@@ -56,7 +56,7 @@
     </div>
   </div>
 
-  <nav class="mt-16 mb-8 font-sans text-[0.75rem]" aria-label="{{ wp_get_nav_menu_name('footer_navigation') }}">
+  <nav class="mt-16 mb-8 small" aria-label="{{ wp_get_nav_menu_name('footer_navigation') }}">
     {!! wp_nav_menu([
       'theme_location' => 'footer_navigation',
       'menu_class' => 'footer-menu',
@@ -67,7 +67,7 @@
   </nav>
 
   @if ($tagline || $disclaimer)
-    <aside class="my-4 font-sans text-[0.75rem]" aria-label="{{ __('About this firm', 'sage') }}">
+    <aside class="my-4 small" aria-label="{{ __('About this firm', 'sage') }}">
       @if ($tagline)
         <p>{{ $tagline }}</p>
       @endif
@@ -77,5 +77,5 @@
     </aside>
   @endif
 
-  <p class="font-sans text-[0.75rem] font-semibold">&copy; {{ $now->format('Y') }} {{ $businessName }}. All rights reserved.</p>
+  <p class="small font-semibold">&copy; {{ $now->format('Y') }} {{ $businessName }}. All rights reserved.</p>
 </footer>

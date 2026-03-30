@@ -220,7 +220,7 @@
                             "aria-label": "",
                             "type": "text",
                             "instructions": "",
-                            "required": 0,
+                            "required": 1,
                             "conditional_logic": 0,
                             "wrapper": {
                                 "width": "50",
@@ -304,7 +304,7 @@
                                     "aria-label": "",
                                     "type": "text",
                                     "instructions": "",
-                                    "required": 0,
+                                    "required": 1,
                                     "conditional_logic": 0,
                                     "wrapper": {
                                         "width": "50",
@@ -348,7 +348,7 @@
                                     "aria-label": "",
                                     "type": "textarea",
                                     "instructions": "",
-                                    "required": 0,
+                                    "required": 1,
                                     "conditional_logic": 0,
                                     "wrapper": {
                                         "width": "",
@@ -368,9 +368,9 @@
                                     "label": "Copy",
                                     "name": "copy",
                                     "aria-label": "",
-                                    "type": "wysiwyg",
+                                    "type": "textarea",
                                     "instructions": "",
-                                    "required": 0,
+                                    "required": 1,
                                     "conditional_logic": 0,
                                     "wrapper": {
                                         "width": "",
@@ -378,34 +378,68 @@
                                         "id": ""
                                     },
                                     "default_value": "",
+                                    "maxlength": "",
                                     "allow_in_bindings": 0,
-                                    "tabs": "all",
-                                    "toolbar": "basic",
-                                    "media_upload": 0,
-                                    "delay": 0,
+                                    "rows": 8,
+                                    "placeholder": "",
+                                    "new_lines": "wpautop",
                                     "parent_repeater": "field_accordion_block_items"
+                                }
+                            ]
+                        },
+                        {
+                            "key": "field_69c414a4b99f3",
+                            "label": "Call-to-Action",
+                            "name": "call-to-action",
+                            "aria-label": "",
+                            "type": "group",
+                            "instructions": "",
+                            "required": 0,
+                            "conditional_logic": 0,
+                            "wrapper": {
+                                "width": "",
+                                "class": "",
+                                "id": ""
+                            },
+                            "layout": "row",
+                            "sub_fields": [
+                                {
+                                    "key": "field_69c64458e2d57",
+                                    "label": "Text Before",
+                                    "name": "text_before",
+                                    "aria-label": "",
+                                    "type": "text",
+                                    "instructions": "",
+                                    "required": 0,
+                                    "conditional_logic": 0,
+                                    "wrapper": {
+                                        "width": "50",
+                                        "class": "",
+                                        "id": ""
+                                    },
+                                    "default_value": "",
+                                    "maxlength": "",
+                                    "allow_in_bindings": 0,
+                                    "placeholder": "",
+                                    "prepend": "",
+                                    "append": ""
                                 },
                                 {
-                                    "key": "field_69c414a4b99f3",
-                                    "label": "Call-to-Action",
-                                    "name": "call-to-action",
+                                    "key": "field_69c64442e2d56",
+                                    "label": "Link",
+                                    "name": "link",
                                     "aria-label": "",
-                                    "type": "wysiwyg",
+                                    "type": "link",
                                     "instructions": "",
                                     "required": 0,
                                     "conditional_logic": 0,
                                     "wrapper": {
-                                        "width": "",
+                                        "width": "50",
                                         "class": "",
                                         "id": ""
                                     },
-                                    "default_value": "",
-                                    "allow_in_bindings": 0,
-                                    "tabs": "all",
-                                    "toolbar": "basic",
-                                    "media_upload": 0,
-                                    "delay": 0,
-                                    "parent_repeater": "field_accordion_block_items"
+                                    "return_format": "array",
+                                    "allow_in_bindings": 0
                                 }
                             ]
                         }
@@ -850,5 +884,5 @@
     "description": "",
     "show_in_rest": 0,
     "display_title": "",
-    "modified": 1774538544
+    "modified": 1774617876
 }

@@ -149,36 +149,13 @@ add_action('wp_footer', function () {
         'hasOfferCatalog' => [
             '@type' => 'OfferCatalog',
             'name' => 'Art Advisory Services',
-            'itemListElement' => [
-                [
-                    '@type' => 'Offer',
-                    'itemOffered' => [
-                        '@type' => 'Service',
-                        'name' => 'Advising',
-                    ],
+            'itemListElement' => array_map(fn ($service) => [
+                '@type' => 'Offer',
+                'itemOffered' => [
+                    '@type' => 'Service',
+                    'name' => $service['name'],
                 ],
-                [
-                    '@type' => 'Offer',
-                    'itemOffered' => [
-                        '@type' => 'Service',
-                        'name' => 'Appraisals',
-                    ],
-                ],
-                [
-                    '@type' => 'Offer',
-                    'itemOffered' => [
-                        '@type' => 'Service',
-                        'name' => 'Collection Management',
-                    ],
-                ],
-                [
-                    '@type' => 'Offer',
-                    'itemOffered' => [
-                        '@type' => 'Service',
-                        'name' => 'Charitable Donation Consulting',
-                    ],
-                ],
-            ],
+            ], get_service_data()),
         ],
     ];
 
@@ -295,28 +272,9 @@ add_action('wp_footer', function () {
         }
     }
 
-    // Service schema on services page
+    // Service schema on services page — read from ACF
     if (is_page('services')) {
-        $services = [
-            [
-                'name' => 'Advising',
-                'description' => 'Whether beginning a collection or refining an established one, collectors benefit from strategic guidance tailored to their vision and goals. Cecilia Dan Fine Art helps clients navigate acquisitions, identify opportunities, and make decisions with confidence. Deep market knowledge and an extensive network ensure access to exceptional work and trusted intelligence.',
-            ],
-            [
-                'name' => 'Appraisals',
-                'description' => 'Accurate appraisals are essential for insurance, estate planning, financing, and sales. Cecilia Dan Fine Art provides professional appraisals that meet USPAP standards and reflect current market conditions. Valuations are thorough, well-documented, and tailored to specific client needs.',
-            ],
-            [
-                'name' => 'Collection Management',
-                'description' => 'Managing a collection requires organization, oversight, and strategic planning. Cecilia Dan Fine Art provides comprehensive collection management services, from cataloging and documentation to conservation planning and exhibition coordination. Collections are kept well-maintained, properly documented, and positioned for the future.',
-            ],
-            [
-                'name' => 'Charitable Donation Consulting',
-                'description' => 'Donating artwork to museums or nonprofits can provide significant tax benefits while supporting institutions of importance to the donor. Cecilia Dan Fine Art guides clients through the entire process, from identifying the right institutions to ensuring proper documentation and valuation. Experience in this area helps maximize both the philanthropic and financial impact of gifts.',
-            ],
-        ];
-
-        foreach ($services as $service) {
+        foreach (get_service_data() as $service) {
             $schema[] = [
                 '@type' => 'Service',
                 'name' => $service['name'],
@@ -528,4 +486,52 @@ function get_institution_affiliations(): array
 function get_artist_names(): array
 {
     return get_reference_data()['artists'];
+}
+
+/**
+ * Get service data from the Services page's accordion block.
+ *
+ * Reads service headlines and leads from ACF flexible content.
+ * Cached via static variable.
+ */
+function get_service_data(): array
+{
+    static $cache = null;
+
+    if ($cache !== null) {
+        return $cache;
+    }
+
+    $cache = [];
+    $services = get_page_by_path('services');
+
+    if (! $services || ! have_rows('content', $services->ID)) {
+        return $cache;
+    }
+
+    while (have_rows('content', $services->ID)) {
+        the_row();
+
+        if (get_row_layout() !== 'accordion_block' || ! have_rows('items')) {
+            continue;
+        }
+
+        while (have_rows('items')) {
+            the_row();
+            $name = get_sub_field('headline');
+            $lead = get_sub_field('lead');
+
+            if ($name) {
+                $cache[] = [
+                    'name' => wp_strip_all_tags($name),
+                    'description' => wp_strip_all_tags($lead),
+                ];
+            }
+        }
+
+        // Only use the first accordion block
+        break;
+    }
+
+    return $cache;
 }

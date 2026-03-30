@@ -15,7 +15,7 @@
       $groupHeadline = get_sub_field('headline');
     @endphp
 
-    <ul class="reference-list" aria-label="{{ $groupHeadline }}">
+    <ul class="small reference-list" aria-label="{{ $groupHeadline }}">
       <li class="font-semibold" role="presentation">{{ $groupHeadline }}:</li>
       @while (have_rows('items'))
         @php

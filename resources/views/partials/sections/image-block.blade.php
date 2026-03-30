@@ -5,7 +5,7 @@
   $creditLink = get_sub_field('photo_credit_link');
 @endphp
 
-<section class="my-16">
+<section class="my-32">
   <h2 class="sr-only">{{ $caption }}</h2>
 
   <figure class="mx-auto max-w-[50rem]">
@@ -16,7 +16,7 @@
       'fetchpriority' => 'high',
     ]) !!}
 
-    <figcaption class="mt-2 font-sans text-[0.75rem] sm:flex sm:justify-between">
+    <figcaption class="mt-2 small sm:flex sm:justify-between">
       <span class="font-semibold">{{ $caption }}</span>
       @if ($credit)
         @if ($creditLink)

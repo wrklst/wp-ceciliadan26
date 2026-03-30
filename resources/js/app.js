@@ -17,6 +17,14 @@ function openHashTarget() {
 openHashTarget();
 window.addEventListener('hashchange', openHashTarget);
 
+// Close accordion on click anywhere in content
+document.addEventListener('click', (e) => {
+  const details = e.target.closest('details[open]');
+  if (details && !e.target.closest('summary') && !e.target.closest('a')) {
+    details.open = false;
+  }
+});
+
 // Local time display (America/Los_Angeles)
 const timeEl = document.getElementById('local-time');
 if (timeEl) {
