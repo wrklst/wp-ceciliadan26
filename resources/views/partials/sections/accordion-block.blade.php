@@ -6,7 +6,7 @@
 @endphp
 
 <section class="my-16" @if ($hash) id="{{ $hash }}" @endif>
-  <h2 class="{{ $visible ? 'mb-2 text-[1.125rem]' : 'sr-only' }}">
+  <h2 class="{{ $visible ? 'mb-2 font-semibold' : 'sr-only' }}">
     {{ $headline }}
   </h2>
 
@@ -20,15 +20,15 @@
     @endphp
 
     <details class="border-t [&:last-of-type]:border-b" @if ($itemHash) id="{{ $itemHash }}" @endif name="accordion-{{ $hash }}">
-      <summary class="my-4 text-[1.5rem]">
+      <summary class="my-4 text-[1.25rem]">
         <h3>{{ $itemHeadline }}</h3>
       </summary>
 
-      <div class="my-4 md:grid md:grid-cols-[38.2%_1fr] md:gap-6">
-        <div class="prose font-semibold">
+      <div class="mb-8 max-w-[50rem]">
+        <div class="mb-4 prose font-semibold">
           {!! $lead !!}
         </div>
-        <div class="mt-4 mb-8 max-w-[45rem] prose md:mt-0 md:mb-6 text-[0.8rem]">
+        <div class="prose font-sans text-[0.9rem] leading-snug">
           {!! $copy !!}
         </div>
       </div>

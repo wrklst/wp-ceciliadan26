@@ -4,8 +4,8 @@
   $visible = get_sub_field('headline_visible');
 @endphp
 
-<section class="my-16" @if ($hash) id="{{ $hash }}" @endif>
-  <h2 class="{{ $visible ? 'mb-2 text-[1.125rem]' : 'sr-only' }}">
+<section class="my-32" @if ($hash) id="{{ $hash }}" @endif>
+  <h2 class="{{ $visible ? 'mb-2 font-semibold' : 'sr-only' }}">
     {{ $headline }}
   </h2>
 
@@ -15,7 +15,7 @@
       $groupHeadline = get_sub_field('headline');
     @endphp
 
-    <ul class="small reference-list" aria-label="{{ $groupHeadline }}">
+    <ul class="reference-list small" aria-label="{{ $groupHeadline }}">
       <li class="font-semibold" role="presentation">{{ $groupHeadline }}:</li>
       @while (have_rows('items'))
         @php

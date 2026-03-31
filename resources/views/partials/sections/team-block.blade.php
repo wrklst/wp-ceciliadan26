@@ -5,52 +5,40 @@
 @endphp
 
 <section class="my-16" @if ($hash) id="{{ $hash }}" @endif>
-  @if ($headline)
-    <h2 class="{{ $visible ? 'mb-2 text-[1.125rem]' : 'sr-only' }}">
-      {{ $headline }}
-    </h2>
-  @endif
+  <h2 class="{{ $visible ? 'mb-2' : 'sr-only' }}">
+    {{ $headline }}
+  </h2>
 
-  @if (have_rows('members'))
-    @while (have_rows('members'))
-      @php
-        the_row();
-        $name = get_sub_field('name');
-        $position = get_sub_field('position');
-        $email = get_sub_field('email');
-        $lead = get_sub_field('lead');
-        $copy = get_sub_field('copy');
-      @endphp
+  @while (have_rows('members'))
+    @php
+      the_row();
+      $name = get_sub_field('name');
+      $email = get_sub_field('email');
+      $emailHref = $email ? antispambot($email, 1) : '';
+      $emailText = $email ? antispambot($email) : '';
+      $lead = get_sub_field('lead');
+      $copy = get_sub_field('copy');
+    @endphp
 
-      <details class="border-t last:border-b">
-        <summary class="my-4 text-[1.5rem]">
-          <h3>{{ $name }}</h3>
-        </summary>
+    <details class="group border-t [&:last-of-type]:border-b" name="team-{{ $hash }}">
+      <summary class="my-6 max-w-[72rem] text-[1.5rem] group-open:sr-only">
+        <h3>{{ $name }}</h3>
+      </summary>
 
-        @if ($position)
-          <p>{{ $position }}</p>
-        @endif
-
+      <div class="my-6">
+        <div class="mb-8 max-w-5xl prose text-[1.5rem] leading-snug select-none">
+          {!! $lead !!}
+        </div>
+        <div class="my-8 max-w-5xl prose font-sans leading-snug">
+          {!! $copy !!}
+        </div>
         @if ($email)
-          <p>
-            <a href="mailto:{!! antispambot($email) !!}">
-              {!! antispambot($email) !!}
-            </a>
+          <p class="mt-4 max-w-5xl small font-semibold">
+            <a href="mailto:{!! $emailHref !!}">{!! $emailText !!} <span class="sr-only">{{ __('(opens email client)', 'sage') }}</span></a>
           </p>
         @endif
-
-        @if ($lead)
-          <div class="prose mt-4 font-semibold [&>p]:mb-0">
-            {!! $lead !!}
-          </div>
-        @endif
-
-        @if ($copy)
-          <div class="prose mt-4 mb-6">
-            {!! $copy !!}
-          </div>
-        @endif
-      </details>
-    @endwhile
-  @endif
+        <button class="team-close sr-only focus:not-sr-only small font-semibold">{{ __('Close text on', 'sage') }} {{ $name }}</button>
+      </div>
+    </details>
+  @endwhile
 </section>

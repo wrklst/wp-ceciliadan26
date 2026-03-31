@@ -16,7 +16,7 @@
   <body @php(body_class())>
     @php(wp_body_open())
 
-    <div class="min-h-dvh flex flex-col max-w-7xl mx-auto px-6">
+    <div class="mx-auto px-6 min-h-dvh max-w-7xl flex flex-col">
       <a class="sr-only focus:not-sr-only" href="#main">
         {{ __('Skip to content', 'sage') }}
       </a>
@@ -24,6 +24,9 @@
       @include('sections.header')
 
       <main id="main" class="mb-32 grow">
+        @unless (is_front_page())
+          <h1 class="sr-only">{{ get_the_title() }}</h1>
+        @endunless
         @yield('content')
       </main>
 

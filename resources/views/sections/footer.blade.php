@@ -37,12 +37,12 @@
             <a href="{{ esc_url($cta['link']['url']) }}">{{ $cta['link']['title'] }} <span class="sr-only">{{ __('(opens email client)', 'sage') }}</span></a>
             {{ $cta['text_after'] }}
           </p>
-          <time id="local-time" datetime="{{ $now->format('c') }}" class="small font-semibold" aria-label="{{ __('Local business time', 'sage') }}">Local time at business: {{ $now->format('l, g:i A T') }}</time>
+          <time id="local-time" datetime="{{ $now->format('c') }}" class="small" aria-label="{{ __('Local business time', 'sage') }}">Local time at business: {{ $now->format('l, g:i A T') }}</time>
         </div>
       @endif
     </div>
 
-    <div class="flex items-start gap-6 mt-12 md:mt-0.5">
+    <div class="mt-12 flex items-start gap-6 md:mt-0.5">
       @if ($apaaUrl)
         <a href="{{ esc_url($apaaUrl) }}" target="_blank" rel="noopener me" aria-label="{{ __('Association of Professional Art Advisors (opens in new tab)', 'sage') }}" class="hover:opacity-70">
           <img src="{{ Vite::asset('resources/images/apaa-logo.svg') }}" alt="APAA member" width="80" height="44" class="h-11 w-auto" loading="lazy" decoding="async">

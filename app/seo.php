@@ -252,7 +252,7 @@ add_action('wp_footer', function () {
                 'https://www.artadvisors.org/art-advisor-directory/p/cecilia-dan',
                 'https://x.com/carbonmesa',
             ],
-            'image' => get_theme_file_uri('resources/images/cecilia-dan.jpg'),
+            'image' => get_theme_file_uri('public/images/cecilia-dan.jpg'),
         ];
 
         $schema[] = $person;
@@ -267,7 +267,11 @@ add_action('wp_footer', function () {
                 'mainEntityOfPage' => home_url('/'),
                 'inLanguage' => 'en-US',
                 'dateCreated' => get_the_date('c', get_option('page_on_front')),
-                'dateModified' => get_the_modified_date('c', get_option('page_on_front')),
+                'dateModified' => get_most_recent_modified_date(),
+                'speakable' => [
+                    '@type' => 'SpeakableSpecification',
+                    'cssSelector' => ['.prose', 'address'],
+                ],
             ];
         }
     }
@@ -481,6 +485,25 @@ function get_reference_data(): array
 function get_institution_affiliations(): array
 {
     return get_reference_data()['affiliations'];
+}
+
+/**
+ * Get the most recent modified date across all published pages.
+ */
+function get_most_recent_modified_date(): string
+{
+    $latest = get_posts([
+        'post_type' => 'page',
+        'post_status' => 'publish',
+        'posts_per_page' => 1,
+        'orderby' => 'modified',
+        'order' => 'DESC',
+        'fields' => 'ids',
+    ]);
+
+    $id = $latest[0] ?? get_option('page_on_front');
+
+    return get_the_modified_date('c', $id);
 }
 
 function get_artist_names(): array

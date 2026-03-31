@@ -104,6 +104,26 @@ add_filter('nav_menu_link_attributes', function ($atts) {
     return $atts;
 });
 
+/**
+ * Add sr-only announcement to external nav menu links.
+ */
+add_filter('nav_menu_item_title', function ($title, $item) {
+    $url = $item->url ?? '';
+
+    if (! $url || ! str_starts_with($url, 'http')) {
+        return $title;
+    }
+
+    $site_host = wp_parse_url(home_url(), PHP_URL_HOST);
+    $link_host = wp_parse_url($url, PHP_URL_HOST);
+
+    if ($link_host && $link_host !== $site_host && ! str_ends_with($link_host, '.' . $site_host)) {
+        $title .= ' <span class="sr-only">' . __('(opens in new tab)', 'sage') . '</span>';
+    }
+
+    return $title;
+}, 10, 2);
+
 function externalize_links(string $content): string
 {
     if (! $content) {
@@ -225,6 +245,13 @@ add_filter('big_image_size_threshold', function () {
 add_filter('wp_img_tag_add_auto_sizes', '__return_false');
 
 /**
+ * Remove users sitemap — prevents author URL enumeration.
+ */
+add_filter('wp_sitemaps_add_provider', function ($provider, $name) {
+    return $name === 'users' ? false : $provider;
+}, 10, 2);
+
+/**
  * Disable WordPress default sitemap for pages that should not be indexed.
  *
  * Excludes legal/utility pages from the sitemap. Add page slugs as needed.
@@ -245,4 +272,59 @@ add_filter('wp_sitemaps_posts_query_args', function ($args, $post_type) {
     }
 
     return $args;
+}, 10, 2);
+
+/**
+ * Custom robots.txt with AI crawler rules.
+ */
+add_filter('robots_txt', function ($output, $public) {
+    if (! $public) {
+        return $output;
+    }
+
+    $sitemap = home_url('/wp-sitemap.xml');
+
+    return <<<ROBOTS
+User-agent: *
+Disallow: /wp-admin/
+Allow: /wp-admin/admin-ajax.php
+
+# AI training crawlers
+User-agent: GPTBot
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: Google-Extended
+Allow: /
+
+User-agent: Meta-ExternalAgent
+Allow: /
+
+# AI search index crawlers
+User-agent: OAI-SearchBot
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: Claude-SearchBot
+Allow: /
+
+# User-triggered AI crawlers
+User-agent: ChatGPT-User
+Allow: /
+
+User-agent: Claude-User
+Allow: /
+
+User-agent: Perplexity-User
+Allow: /
+
+User-agent: Applebot-Extended
+Allow: /
+
+Sitemap: {$sitemap}
+ROBOTS;
 }, 10, 2);

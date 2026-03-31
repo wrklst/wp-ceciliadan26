@@ -17,8 +17,13 @@ function openHashTarget() {
 openHashTarget();
 window.addEventListener('hashchange', openHashTarget);
 
-// Close accordion on click anywhere in content
+// Close accordion on click anywhere in content, or via team close button
 document.addEventListener('click', (e) => {
+  if (e.target.closest('.team-close')) {
+    e.target.closest('details').open = false;
+    return;
+  }
+
   const details = e.target.closest('details[open]');
   if (details && !e.target.closest('summary') && !e.target.closest('a')) {
     details.open = false;

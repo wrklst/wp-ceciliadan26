@@ -460,7 +460,7 @@
                             "aria-label": "",
                             "type": "text",
                             "instructions": "",
-                            "required": 0,
+                            "required": 1,
                             "conditional_logic": 0,
                             "wrapper": {
                                 "width": "50",
@@ -544,32 +544,10 @@
                                     "aria-label": "",
                                     "type": "text",
                                     "instructions": "",
-                                    "required": 0,
+                                    "required": 1,
                                     "conditional_logic": 0,
                                     "wrapper": {
-                                        "width": "34",
-                                        "class": "",
-                                        "id": ""
-                                    },
-                                    "default_value": "",
-                                    "maxlength": "",
-                                    "allow_in_bindings": 0,
-                                    "placeholder": "",
-                                    "prepend": "",
-                                    "append": "",
-                                    "parent_repeater": "field_team_block_members"
-                                },
-                                {
-                                    "key": "field_team_member_position",
-                                    "label": "Position",
-                                    "name": "position",
-                                    "aria-label": "",
-                                    "type": "text",
-                                    "instructions": "",
-                                    "required": 0,
-                                    "conditional_logic": 0,
-                                    "wrapper": {
-                                        "width": "33",
+                                        "width": "50",
                                         "class": "",
                                         "id": ""
                                     },
@@ -591,7 +569,7 @@
                                     "required": 0,
                                     "conditional_logic": 0,
                                     "wrapper": {
-                                        "width": "33",
+                                        "width": "50",
                                         "class": "",
                                         "id": ""
                                     },
@@ -618,10 +596,10 @@
                                     },
                                     "default_value": "",
                                     "maxlength": "",
-                                    "allow_in_bindings": 1,
+                                    "allow_in_bindings": 0,
                                     "rows": 3,
                                     "placeholder": "",
-                                    "new_lines": "br",
+                                    "new_lines": "wpautop",
                                     "parent_repeater": "field_team_block_members"
                                 },
                                 {
@@ -629,9 +607,9 @@
                                     "label": "Copy",
                                     "name": "copy",
                                     "aria-label": "",
-                                    "type": "wysiwyg",
+                                    "type": "textarea",
                                     "instructions": "",
-                                    "required": 0,
+                                    "required": 1,
                                     "conditional_logic": 0,
                                     "wrapper": {
                                         "width": "",
@@ -639,11 +617,11 @@
                                         "id": ""
                                     },
                                     "default_value": "",
+                                    "maxlength": "",
                                     "allow_in_bindings": 0,
-                                    "tabs": "all",
-                                    "toolbar": "basic",
-                                    "media_upload": 0,
-                                    "delay": 0,
+                                    "rows": 8,
+                                    "placeholder": "",
+                                    "new_lines": "wpautop",
                                     "parent_repeater": "field_team_block_members"
                                 }
                             ]
@@ -884,5 +862,5 @@
     "description": "",
     "show_in_rest": 0,
     "display_title": "",
-    "modified": 1774617876
+    "modified": 1774874096
 }

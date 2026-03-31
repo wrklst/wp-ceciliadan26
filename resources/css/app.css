@@ -83,7 +83,7 @@ body {
 .small {
   font-family: var(--font-sans);
   font-size: 0.8rem;
-  line-height: 1.45;
+  line-height: 1.4;
 }
 
 /* Hide scrollbars while preserving scroll functionality */
@@ -130,7 +130,6 @@ details {
 
 summary {
   list-style: none;
-  min-height: 44px;
   display: flex;
   align-items: center;
   user-select: none;
@@ -149,7 +148,6 @@ summary:focus-visible h3 {
 summary::-webkit-details-marker {
   display: none;
 }
-
 
 /* Reference lists */
 .reference-list {
@@ -219,7 +217,6 @@ summary::-webkit-details-marker {
 .prose p {
   margin-top: 0.5em;
   margin-bottom: 0.5em;
-
 }
 
 .prose p:first-child {
@@ -272,7 +269,9 @@ summary::-webkit-details-marker {
   }
 
   a[href^="#"]::after,
-  a[href^="javascript:"]::after {
+  a[href^="javascript:"]::after,
+  a[href^="mailto:"]::after,
+  a[href^="tel:"]::after {
     content: "";
   }
 
