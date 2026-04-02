@@ -547,7 +547,29 @@
                                     "required": 1,
                                     "conditional_logic": 0,
                                     "wrapper": {
-                                        "width": "50",
+                                        "width": "25",
+                                        "class": "",
+                                        "id": ""
+                                    },
+                                    "default_value": "",
+                                    "maxlength": "",
+                                    "allow_in_bindings": 0,
+                                    "placeholder": "",
+                                    "prepend": "",
+                                    "append": "",
+                                    "parent_repeater": "field_team_block_members"
+                                },
+                                {
+                                    "key": "field_team_member_job_title",
+                                    "label": "Job Title",
+                                    "name": "job_title",
+                                    "aria-label": "",
+                                    "type": "text",
+                                    "instructions": "Used in structured data (e.g. \"Projects Director\").",
+                                    "required": 0,
+                                    "conditional_logic": 0,
+                                    "wrapper": {
+                                        "width": "25",
                                         "class": "",
                                         "id": ""
                                     },
@@ -569,7 +591,7 @@
                                     "required": 0,
                                     "conditional_logic": 0,
                                     "wrapper": {
-                                        "width": "50",
+                                        "width": "25",
                                         "class": "",
                                         "id": ""
                                     },

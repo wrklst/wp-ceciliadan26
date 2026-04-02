@@ -82,7 +82,7 @@ add_action('wp_head', function () {
  */
 add_action('wp_head', function () {
     if (is_noindex_page()) {
-        echo '<meta name="robots" content="noindex, nofollow">' . "\n";
+        echo '<meta name="robots" content="noindex, follow">' . "\n";
     }
 }, 1);
 
@@ -155,6 +155,18 @@ add_action('wp_footer', function () {
             'Estate Art Appraisals',
             'Provenance Research',
         ],
+        'employee' => array_merge(
+            [['@id' => home_url('/#person')]],
+            array_values(array_filter(
+                array_map(function ($member, $index) {
+                    if (stripos($member['name'], 'Cecilia Dan') !== false) {
+                        return null;
+                    }
+
+                    return ['@id' => home_url('/#person-' . ($index + 1))];
+                }, get_team_data(), array_keys(get_team_data()))
+            ))
+        ),
         'hasOfferCatalog' => [
             '@type' => 'OfferCatalog',
             'name' => 'Art Advisory Services',
@@ -168,6 +180,27 @@ add_action('wp_footer', function () {
         ],
     ];
 
+    // BreadcrumbList on all inner pages
+    if (! is_front_page() && is_singular()) {
+        $schema[] = [
+            '@type' => 'BreadcrumbList',
+            'itemListElement' => [
+                [
+                    '@type' => 'ListItem',
+                    'position' => 1,
+                    'name' => get_bloginfo('name', 'raw'),
+                    'item' => home_url('/'),
+                ],
+                [
+                    '@type' => 'ListItem',
+                    'position' => 2,
+                    'name' => get_the_title(),
+                    'item' => get_permalink(),
+                ],
+            ],
+        ];
+    }
+
     // Person + ProfilePage on front page and about page
     if (is_front_page() || is_page('about')) {
         $person = [
@@ -175,7 +208,7 @@ add_action('wp_footer', function () {
             '@id' => home_url('/#person'),
             'name' => 'Cecilia Dan',
             'url' => home_url('/'),
-            'jobTitle' => 'Art Advisor & Accredited Senior Appraiser',
+            'jobTitle' => 'Founder, Art Advisor & Accredited Senior Appraiser',
             'description' => 'With over three decades of experience in the art market, Cecilia Dan provides expert guidance to collectors, family offices, institutions, and estates navigating acquisitions, deaccessions, valuations, and long-term collection strategy in Los Angeles and nationally.',
             'worksFor' => ['@id' => home_url('/#organization')],
             'alumniOf' => [
@@ -214,14 +247,18 @@ add_action('wp_footer', function () {
             ],
             'knowsAbout' => array_merge([
                 'Modern and Contemporary Fine Art',
+                'Post-War Art',
                 'Art Advisory',
                 'Art Acquisitions and Deaccessions',
                 'Fine Art Appraisals',
                 'USPAP Standards',
+                'Market Analysis',
                 'Collection Strategy',
                 'Collection Management',
                 'Charitable Art Donations',
+                'Institutional Placement of Donated Artworks',
                 'Estate Planning and Appraisals',
+                'Art Valuation for Legal Matters',
                 'Provenance Research',
                 'Los Angeles Art Market',
             ], get_artist_names()),
@@ -251,7 +288,7 @@ add_action('wp_footer', function () {
                     '@type' => 'Organization',
                     'name' => 'Museum of Contemporary Art, Los Angeles',
                     'alternateName' => 'MOCA',
-                    'description' => "Director's Forum",
+                    'description' => 'MOCA Partners',
                 ],
             ],
             'affiliation' => get_institution_affiliations(),
@@ -281,6 +318,58 @@ add_action('wp_footer', function () {
                     'cssSelector' => ['.prose', 'address'],
                 ],
             ];
+        }
+    }
+
+    // AboutPage + team member Person schemas on about page
+    if (is_page('about')) {
+        $about_post = get_post();
+
+        $schema[] = [
+            '@type' => 'AboutPage',
+            '@id' => home_url('/about/#aboutpage'),
+            'url' => get_permalink(),
+            'name' => get_the_title(),
+            'mainEntity' => ['@id' => home_url('/#organization')],
+            'inLanguage' => 'en-US',
+            'dateCreated' => get_the_date('c', $about_post),
+            'dateModified' => get_the_modified_date('c', $about_post),
+            'speakable' => [
+                '@type' => 'SpeakableSpecification',
+                'cssSelector' => ['.prose'],
+            ],
+        ];
+
+        // Team member Person schemas (excluding founder — she has a rich hardcoded schema)
+        foreach (get_team_data() as $index => $member) {
+            if (stripos($member['name'], 'Cecilia Dan') !== false) {
+                continue;
+            }
+
+            $member_id = home_url('/#person-' . ($index + 1));
+            $member_schema = [
+                '@type' => 'Person',
+                '@id' => $member_id,
+                'name' => $member['name'],
+                'worksFor' => ['@id' => home_url('/#organization')],
+            ];
+
+            if ($member['job_title']) {
+                $member_schema['jobTitle'] = $member['job_title'];
+            }
+
+            if ($member['description']) {
+                $member_schema['description'] = $member['description'];
+            }
+
+            if ($member['email']) {
+                $member_schema['email'] = $member['email'];
+            }
+
+            // TODO: Add sameAs links for team members when available
+            // $member_schema['sameAs'] = [];
+
+            $schema[] = $member_schema;
         }
     }
 
@@ -537,6 +626,59 @@ function get_most_recent_modified_date(): string
 function get_artist_names(): array
 {
     return get_reference_data()['artists'];
+}
+
+/**
+ * Get team member data from the About page's team block.
+ *
+ * Reads member names, emails, job titles, and descriptions
+ * from ACF flexible content. Cached via static variable.
+ *
+ * @return array<int, array{name: string, email: string, job_title: string, description: string}>
+ */
+function get_team_data(): array
+{
+    static $cache = null;
+
+    if ($cache !== null) {
+        return $cache;
+    }
+
+    $cache = [];
+    $about = get_page_by_path('about');
+
+    if (! $about || ! have_rows('content', $about->ID)) {
+        return $cache;
+    }
+
+    while (have_rows('content', $about->ID)) {
+        the_row();
+
+        if (get_row_layout() !== 'team_block' || ! have_rows('members')) {
+            continue;
+        }
+
+        while (have_rows('members')) {
+            the_row();
+            $name = wp_strip_all_tags(get_sub_field('name'));
+
+            if (! $name) {
+                continue;
+            }
+
+            $cache[] = [
+                'name' => $name,
+                'email' => get_sub_field('email') ?: '',
+                'job_title' => wp_strip_all_tags(get_sub_field('job_title') ?: ''),
+                'description' => wp_strip_all_tags(get_sub_field('lead') ?: ''),
+            ];
+        }
+
+        // Only use the first team block
+        break;
+    }
+
+    return $cache;
 }
 
 /**

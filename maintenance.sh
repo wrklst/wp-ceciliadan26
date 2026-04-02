@@ -20,6 +20,10 @@ REMOTE="TODO_SSH_USER@TODO_SSH_HOST"
 REMOTE_WP_PATH="files"
 LOCAL_WP_PATH="$(cd "$(dirname "$0")/../../.." && pwd)"
 
+# Site languages — keep translations matching these locale prefixes.
+# Used by audit_plugin_translations to prune unused languages bundled inside plugins.
+SITE_LANGUAGES=("en")
+
 # WP-CLI paths
 LOCAL_WP_CLI="${WP_CLI:-$(command -v wp 2>/dev/null || echo "$HOME/bin/wp")}"
 REMOTE_WP_CLI="wp"
@@ -566,6 +570,128 @@ audit_stale_translations() {
     done
     cleaned "${#expanded_files[@]}"
     echo -e "  ${GREEN}✓ Deleted.${NC}"
+  fi
+}
+
+audit_plugin_translations() {
+  echo -e "\n${CYAN}[16b] Plugin-bundled unused translations${NC}"
+
+  local wp_root
+  if [ "$CURRENT_ENV" = "remote" ]; then
+    wp_root="$REMOTE_WP_PATH"
+  else
+    wp_root="$LOCAL_WP_PATH"
+  fi
+
+  run_cmd() {
+    if [ "$CURRENT_ENV" = "remote" ]; then
+      ssh "$REMOTE" "$*" 2>/dev/null
+    else
+      eval "$*" 2>/dev/null
+    fi
+  }
+
+  # Known plugin translation directories and their file naming conventions:
+  #   mo-style: plugin-LOCALE.mo/.po/.l10n.php (ACF, WPML, ACFML, Mailgun, etc.)
+  #   json-style: LOCALE.json (Matomo)
+  local -a mo_dirs=()
+  local -a json_dirs=()
+
+  # ACF Pro
+  local acf_lang="$wp_root/wp-content/plugins/advanced-custom-fields-pro/lang"
+  if run_cmd "test -d $acf_lang"; then
+    mo_dirs+=("$acf_lang")
+    if run_cmd "test -d $acf_lang/pro"; then
+      mo_dirs+=("$acf_lang/pro")
+    fi
+  fi
+
+  # WPML CMS
+  local wpml_base="$wp_root/wp-content/plugins/sitepress-multilingual-cms"
+  for subdir in locale vendor/wpml/wpml/languages vendor/wpml/sql-parser/locale vendor/otgs/installer/locale; do
+    if run_cmd "test -d $wpml_base/$subdir"; then
+      mo_dirs+=("$wpml_base/$subdir")
+    fi
+  done
+
+  # WPML String Translation
+  local wpml_st="$wp_root/wp-content/plugins/wpml-string-translation/locale"
+  if run_cmd "test -d $wpml_st"; then
+    mo_dirs+=("$wpml_st")
+  fi
+
+  # ACFML
+  local acfml="$wp_root/wp-content/plugins/acfml/languages"
+  if run_cmd "test -d $acfml"; then
+    mo_dirs+=("$acfml")
+  fi
+
+  # Mailgun
+  local mailgun="$wp_root/wp-content/plugins/mailgun/languages"
+  if run_cmd "test -d $mailgun"; then
+    mo_dirs+=("$mailgun")
+  fi
+
+  # Matomo (json-style)
+  local matomo_lang="$wp_root/wp-content/plugins/matomo/app/lang"
+  if run_cmd "test -d $matomo_lang"; then
+    json_dirs+=("$matomo_lang")
+  fi
+
+  local total_stale=0
+
+  # Process mo-style directories
+  for dir in "${mo_dirs[@]}"; do
+    # Build a find command that excludes files matching site languages and .pot files
+    local find_cmd="find $dir -maxdepth 1 -type f"
+    for lang in "${SITE_LANGUAGES[@]}"; do
+      find_cmd="$find_cmd ! -name '*-${lang}_*' ! -name '*-${lang}.*'"
+    done
+    find_cmd="$find_cmd ! -name '*.pot'"
+
+    local stale_files
+    stale_files=$(run_cmd "$find_cmd" | wc -l | tr -d '[:space:]')
+    if [ "$stale_files" -gt 0 ] 2>/dev/null; then
+      local dir_label
+      dir_label=$(echo "$dir" | sed "s|$wp_root/wp-content/plugins/||")
+      echo -e "  ${YELLOW}$dir_label: $stale_files unused file(s)${NC}"
+      total_stale=$((total_stale + stale_files))
+
+      if [ "$DRY_RUN" = false ]; then
+        run_cmd "$find_cmd -delete"
+      fi
+    fi
+  done
+
+  # Process json-style directories
+  for dir in "${json_dirs[@]}"; do
+    local find_cmd="find $dir -maxdepth 1 -type f -name '*.json'"
+    for lang in "${SITE_LANGUAGES[@]}"; do
+      find_cmd="$find_cmd ! -name '${lang}.json' ! -name '${lang}-*.json'"
+    done
+
+    local stale_files
+    stale_files=$(run_cmd "$find_cmd" | wc -l | tr -d '[:space:]')
+    if [ "$stale_files" -gt 0 ] 2>/dev/null; then
+      local dir_label
+      dir_label=$(echo "$dir" | sed "s|$wp_root/wp-content/plugins/||")
+      echo -e "  ${YELLOW}$dir_label: $stale_files unused file(s)${NC}"
+      total_stale=$((total_stale + stale_files))
+
+      if [ "$DRY_RUN" = false ]; then
+        run_cmd "$find_cmd -delete"
+      fi
+    fi
+  done
+
+  if [ "$total_stale" -eq 0 ]; then
+    echo -e "  ${GREEN}✓ No unused plugin translations.${NC}"
+  else
+    found "$total_stale"
+    if [ "$DRY_RUN" = false ]; then
+      cleaned "$total_stale"
+      echo -e "  ${GREEN}✓ Removed $total_stale unused translation file(s).${NC}"
+    fi
   fi
 }
 
@@ -1209,6 +1335,7 @@ run_audit() {
   audit_duplicate_postmeta
   audit_action_scheduler
   audit_stale_translations
+  audit_plugin_translations
   audit_acf_stale_data
   audit_stale_cron
   audit_stale_files

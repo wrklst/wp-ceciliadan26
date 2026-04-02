@@ -28,7 +28,7 @@ ceciliadan/                     ← WP root (NOT a git repo)
 │   │   ├── classic-editor/
 │   │   └── shortpixel-image-optimiser/  ← AVIF/WebP generation + Glossy compression
 │   ├── themes/
-│   │   └── cecilia-dan-fine-art-theme/  ← Theme directory (git repo root)
+│   │   └── cecilia-dan-theme/  ← Theme directory (git repo root)
 │   │       ├── app/
 │   │       │   ├── setup.php           ← Theme setup, wp_head cleanup, bloat removal
 │   │       │   ├── filters.php         ← Security filters, image pipeline, SEO title
@@ -120,7 +120,7 @@ ceciliadan/                     ← WP root (NOT a git repo)
 - **CSS**: Tailwind 4 utility-first, `@import "tailwindcss" theme(static)` in `app.css`
 - **Views**: Blade templates in `resources/views/`, auto-discovered by Acorn
 - **Composers**: View composers in `app/View/Composers/`, extend `Roots\Acorn\View\Composer`
-- **Assets**: Vite handles CSS/JS/fonts/images, base path `wp-content/themes/cecilia-dan-fine-art-theme/public/build/`
+- **Assets**: Vite handles CSS/JS/fonts/images, base path `wp-content/themes/cecilia-dan-theme/public/build/`
 - **SEO**: No plugin — meta/OG/JSON-LD handled in `app/seo.php`. ACF `meta_description` field supported for per-page descriptions.
 - **Image pipeline**: WordPress generates sizes at AVIF 68, WebP 80, JPEG 82. ShortPixel re-optimizes with Glossy compression and generates AVIF/WebP variants. Delivery via .htaccess Accept header negotiation (mode 3). Big image threshold 3840px for portfolio work.
 - **Noindex pages**: Slugs `privacy-policy`, `terms-of-service`, `legal` are noindexed and excluded from sitemap.

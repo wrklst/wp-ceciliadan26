@@ -82,6 +82,7 @@ EXCLUDES=(
   --exclude='resources/fonts/'
 
   # Composer dev dependencies (vendor/ is needed, but trim dev extras)
+  --exclude='vendor/laravel/pint/'
   --exclude='vendor/**/tests/'
   --exclude='vendor/**/Tests/'
   --exclude='vendor/**/test/'
