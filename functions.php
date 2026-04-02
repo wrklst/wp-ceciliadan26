@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 use Roots\Acorn\Application;
 
 /*
@@ -49,7 +51,7 @@ Application::configure()
 |
 */
 
-collect(['setup', 'filters', 'seo', 'security', 'fields'])
+collect(['setup', 'filters', 'seo', 'security', 'images', 'fields', 'admin'])
     ->each(function ($file) {
         if (! locate_template($file = "app/{$file}.php", true, true)) {
             wp_die(

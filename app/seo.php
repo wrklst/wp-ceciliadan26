@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /**
  * SEO, Open Graph, and JSON-LD structured data.
  *
@@ -10,17 +12,13 @@
 namespace App;
 
 /**
- * Output meta description and Open Graph tags in wp_head.
+ * Output meta description, canonical URL, and Open Graph tags in wp_head.
  */
 add_action('wp_head', function () {
     $is_noindex = is_noindex_page();
-
-    if ($is_noindex) {
-        return;
-    }
-
     $description = get_meta_description();
 
+    // Meta description — keep on noindex pages (useful for browser UI)
     if ($description) {
         printf(
             '<meta name="description" content="%s">' . "\n",
@@ -28,8 +26,19 @@ add_action('wp_head', function () {
         );
     }
 
-    $title = wp_get_document_title();
+    // Canonical URL
     $url = is_front_page() ? home_url('/') : get_permalink();
+
+    if ($url) {
+        printf('<link rel="canonical" href="%s">' . "\n", esc_url($url));
+    }
+
+    // Skip OG and Twitter tags on noindex pages
+    if ($is_noindex) {
+        return;
+    }
+
+    $title = wp_get_document_title();
     $site_name = get_bloginfo('name', 'display');
     $locale = get_locale();
 
@@ -264,7 +273,6 @@ add_action('wp_footer', function () {
                 'url' => home_url('/'),
                 'name' => get_bloginfo('name', 'raw'),
                 'mainEntity' => ['@id' => home_url('/#person')],
-                'mainEntityOfPage' => home_url('/'),
                 'inLanguage' => 'en-US',
                 'dateCreated' => get_the_date('c', get_option('page_on_front')),
                 'dateModified' => get_most_recent_modified_date(),
@@ -317,6 +325,10 @@ add_action('wp_footer', function () {
 
 /**
  * Get the meta description for the current page.
+ *
+ * Fallback chain: ACF meta_description → tagline (front page) → excerpt → trimmed content.
+ *
+ * @return string Meta description (plain text, max ~25 words for auto-trimmed)
  */
 function get_meta_description(): string
 {
@@ -358,6 +370,10 @@ function get_meta_description(): string
 
 /**
  * Get the OG image data for the current page.
+ *
+ * Falls back to og-image.jpg in theme root if no featured image.
+ *
+ * @return array{url: string, width: string, height: string, type: string, alt: string}|null
  */
 function get_og_image(): ?array
 {
@@ -404,6 +420,8 @@ function get_og_image(): ?array
 
 /**
  * Check if the current page should be noindexed.
+ *
+ * @return bool True for legal/utility pages (site-notice, privacy-policy, etc.)
  */
 function is_noindex_page(): bool
 {
@@ -423,6 +441,8 @@ function is_noindex_page(): bool
  * Parses the first list block's groups from ACF flexible content.
  * Returns institutions as Schema.org Organization entries and
  * artist names as plain strings. Cached via static variable.
+ *
+ * @return array{affiliations: array<int, array{@type: string, name: string}>, artists: array<int, string>}
  */
 function get_reference_data(): array
 {
@@ -482,6 +502,9 @@ function get_reference_data(): array
     return $cache;
 }
 
+/**
+ * @return array<int, array{@type: string, name: string}>
+ */
 function get_institution_affiliations(): array
 {
     return get_reference_data()['affiliations'];
@@ -489,6 +512,8 @@ function get_institution_affiliations(): array
 
 /**
  * Get the most recent modified date across all published pages.
+ *
+ * @return string ISO 8601 date string
  */
 function get_most_recent_modified_date(): string
 {
@@ -506,6 +531,9 @@ function get_most_recent_modified_date(): string
     return get_the_modified_date('c', $id);
 }
 
+/**
+ * @return array<int, string>
+ */
 function get_artist_names(): array
 {
     return get_reference_data()['artists'];
@@ -516,6 +544,8 @@ function get_artist_names(): array
  *
  * Reads service headlines and leads from ACF flexible content.
  * Cached via static variable.
+ *
+ * @return array<int, array{name: string, description: string}>
  */
 function get_service_data(): array
 {

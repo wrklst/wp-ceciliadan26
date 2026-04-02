@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /**
  * Security headers and CSP nonce.
  *
@@ -76,9 +78,12 @@ add_action('send_headers', function (): void {
 
     header('Content-Security-Policy: ' . implode('; ', $directives));
 
-    header('Permissions-Policy: camera=(), microphone=(), geolocation=(), payment=(), usb=(), bluetooth=(), magnetometer=(), gyroscope=(), accelerometer=(), ambient-light-sensor=(), autoplay=(), browsing-topics=(), display-capture=(), encrypted-media=(), fullscreen=(), idle-detection=(), midi=(), picture-in-picture=(), publickey-credentials-get=(), screen-wake-lock=(), serial=(), sync-xhr=(), xr-spatial-tracking=()');
+    header('Permissions-Policy: camera=(), microphone=(), geolocation=(), payment=(), usb=(), bluetooth=(), magnetometer=(), gyroscope=(), accelerometer=(), ambient-light-sensor=(), autoplay=(), browsing-topics=(), display-capture=(), encrypted-media=(), fullscreen=(), idle-detection=(), midi=(), picture-in-picture=(), publickey-credentials-get=(), screen-wake-lock=(), serial=(), sync-xhr=(), unload=(), xr-spatial-tracking=()');
 
     header('Cross-Origin-Opener-Policy: same-origin');
+
+    // TODO: Uncomment when deployed to production with HTTPS
+    // header('Strict-Transport-Security: max-age=63072000; includeSubDomains; preload');
 });
 
 /**

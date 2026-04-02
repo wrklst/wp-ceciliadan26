@@ -1,10 +1,4 @@
-@import "tailwindcss" theme(static);
-@source "../views/";
-@source "../../app/";
-
-@theme {
-  --font-sans: 'Inter', 'Inter Fallback', Arial, sans-serif;
-}
+/* 1. FONT LOADING */
 
 /* Source Serif 4 — self-hosted, latin subset */
 @font-face {
@@ -44,7 +38,7 @@
   font-family: 'Inter';
   font-style: normal;
   font-weight: 400 600;
-  font-display: swap;
+  font-display: optional;
   src: url('../fonts/inter-latin.woff2') format('woff2');
   unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA,
                  U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122,
@@ -61,7 +55,23 @@
   line-gap-override: 0%;
 }
 
-/* Typographic defaults — reset all browser-agent styles */
+
+/* 2. CUSTOM PROPERTIES */
+
+@theme {
+  --font-sans: 'Inter', 'Inter Fallback', Arial, sans-serif;
+}
+
+
+/* 3. TAILWIND */
+
+@import "tailwindcss" theme(static);
+@source "../views/";
+@source "../../app/";
+
+
+/* 4. RESET & BASE */
+
 @layer base {
   *,
   *::before,
@@ -75,18 +85,10 @@ body {
   font-family: 'Source Serif 4', 'Source Serif 4 Fallback', Georgia, serif;
   font-weight: 400;
   font-style: normal;
-  line-height: 1.35;
+  line-height: 1.375;
   text-wrap: pretty;
 }
 
-/* Small text — secondary/meta content */
-.small {
-  font-family: var(--font-sans);
-  font-size: 0.8rem;
-  line-height: 1.4;
-}
-
-/* Hide scrollbars while preserving scroll functionality */
 *,
 *::before,
 *::after {
@@ -97,31 +99,85 @@ body {
   display: none;
 }
 
-/* Links — no underline by default, underline on hover */
+
+/* 5. TYPOGRAPHY */
+
+h1, h2, h3, .font-semibold p {
+  text-wrap: balance;
+}
+
+.small {
+  font-family: var(--font-sans);
+  font-size: 0.8rem;
+}
+
+.prose p {
+  margin-top: 0.5em;
+  margin-bottom: 0.5em;
+}
+
+.prose p:first-child {
+  margin-top: 0;
+}
+
+.prose p:last-child {
+  margin-bottom: 0;
+}
+
+
+/* 6. LINKS & NAVIGATION */
+
 a {
   text-decoration: none;
   transition: text-decoration-color 150ms, opacity 150ms;
 }
 
-@media (hover: hover) {
-  a:hover {
-    text-decoration: underline;
-    text-decoration-thickness: 1.5px;
-    text-underline-offset: 4px;
-    text-decoration-skip-ink: none;
-  }
-
-  .small a:hover,
-  a.small:hover {
-    text-decoration-thickness: 1px;
-  }
-
-  .font-semibold a:hover,
-  a.font-semibold:hover,
-  .footer-menu > li > a:hover {
-    text-decoration-thickness: 1.5px;
-  }
+.footer-menu {
+  display: flex;
+  flex-wrap: wrap;
+  margin-left: -0.75rem;
 }
+
+.footer-menu li {
+  display: contents;
+}
+
+.footer-menu a {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.5rem 0.75rem;
+  min-height: 44px;
+}
+
+.footer-menu > li > a {
+  font-weight: 600;
+}
+
+.sub-menu {
+  display: contents;
+}
+
+
+/* 7. FOCUS STATES */
+
+:focus-visible {
+  outline: 2px solid currentColor;
+  outline-offset: 2px;
+  border-radius: 0.5rem;
+}
+
+summary:focus-visible {
+  outline: none;
+}
+
+summary:focus-visible h3 {
+  outline: 2px solid currentColor;
+  outline-offset: 2px;
+  border-radius: 0.5rem;
+}
+
+
+/* 9. COMPONENTS */
 
 /* Accordion — details/summary */
 details {
@@ -135,21 +191,11 @@ summary {
   user-select: none;
 }
 
-summary:focus-visible {
-  outline: none;
-}
-
-summary:focus-visible h3 {
-  outline: 2px solid currentColor;
-  outline-offset: 2px;
-  border-radius: 0.5rem;
-}
-
 summary::-webkit-details-marker {
   display: none;
 }
 
-/* Reference lists */
+/* Reference lists — inline comma-separated items */
 .reference-list {
   margin-top: 0.5rem;
 }
@@ -174,60 +220,32 @@ summary::-webkit-details-marker {
   content: ' ';
 }
 
-/* Focus indicators — WCAG 2.4.13 compliant */
-:focus-visible {
-  outline: 2px solid currentColor;
-  outline-offset: 2px;
-  border-radius: 0.5rem;
+
+/* 11. HOVER STATES */
+
+@media (hover: hover) {
+  a:hover {
+    text-decoration: underline;
+    text-decoration-thickness: 1.5px;
+    text-underline-offset: 4px;
+    text-decoration-skip-ink: none;
+  }
+
+  .small a:hover,
+  a.small:hover {
+    text-decoration-thickness: 1px;
+  }
+
+  .font-semibold a:hover,
+  a.font-semibold:hover,
+  .footer-menu > li > a:hover {
+    text-decoration-thickness: 1.5px;
+  }
 }
 
-/* WordPress nav menus */
-.footer-menu {
-  display: flex;
-  flex-wrap: wrap;
-  margin-left: -0.75rem;
-}
 
-.footer-menu li {
-  display: contents;
-}
+/* 12. REDUCED MOTION */
 
-.footer-menu a {
-  display: inline-flex;
-  align-items: center;
-  padding: 0.5rem 0.75rem;
-  min-height: 44px;
-}
-
-.footer-menu a:focus-visible {
-  outline: 2px solid currentColor;
-  outline-offset: 2px;
-  border-radius: 0.5rem;
-}
-
-.footer-menu > li > a {
-  font-weight: 600;
-}
-
-.sub-menu {
-  display: contents;
-}
-
-/* Prose spacing */
-.prose p {
-  margin-top: 0.5em;
-  margin-bottom: 0.5em;
-}
-
-.prose p:first-child {
-  margin-top: 0;
-}
-
-.prose p:last-child {
-  margin-bottom: 0;
-}
-
-/* Respect reduced motion preference */
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,
@@ -239,7 +257,9 @@ summary::-webkit-details-marker {
   }
 }
 
-/* Print styles */
+
+/* 13. PRINT */
+
 @media print {
   body {
     display: block;

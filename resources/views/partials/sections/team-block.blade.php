@@ -21,15 +21,15 @@
     @endphp
 
     <details class="group border-t [&:last-of-type]:border-b" name="team-{{ $hash }}">
-      <summary class="my-6 max-w-[72rem] text-[1.5rem] group-open:sr-only">
+      <summary class="my-6 max-w-5xl text-[1.5rem] group-open:sr-only">
         <h3>{{ $name }}</h3>
       </summary>
 
       <div class="my-6">
-        <div class="mb-8 max-w-5xl prose text-[1.5rem] leading-snug select-none">
+        <div class="mb-8 max-w-5xl prose text-[1.5rem] select-none">
           {!! $lead !!}
         </div>
-        <div class="my-8 max-w-5xl prose font-sans leading-snug">
+        <div class="my-8 max-w-5xl prose font-sans">
           {!! $copy !!}
         </div>
         @if ($email)

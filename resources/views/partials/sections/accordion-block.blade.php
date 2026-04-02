@@ -28,7 +28,7 @@
         <div class="mb-4 prose font-semibold">
           {!! $lead !!}
         </div>
-        <div class="prose font-sans text-[0.9rem] leading-snug">
+        <div class="prose font-sans text-[0.9rem]">
           {!! $copy !!}
         </div>
       </div>

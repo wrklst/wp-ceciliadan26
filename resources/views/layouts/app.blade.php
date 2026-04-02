@@ -5,6 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="color-scheme" content="light">
     <meta name="format-detection" content="telephone=no, date=no, email=no, address=no">
+    {{-- TODO: Add favicon files to resources/images/ then uncomment --}}
+    {{-- <link rel="icon" href="{{ Vite::asset('resources/images/favicon.ico') }}" sizes="32x32"> --}}
+    {{-- <link rel="icon" href="{{ Vite::asset('resources/images/favicon.svg') }}" type="image/svg+xml"> --}}
+    {{-- <link rel="apple-touch-icon" href="{{ Vite::asset('resources/images/apple-touch-icon.png') }}"> --}}
     <link rel="preload" as="font" type="font/woff2" href="{{ Vite::asset('resources/fonts/source-serif-4-latin-400.woff2') }}" crossorigin>
     <link rel="preload" as="font" type="font/woff2" href="{{ Vite::asset('resources/fonts/inter-latin.woff2') }}" crossorigin>
     @php(do_action('get_header'))
