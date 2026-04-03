@@ -145,7 +145,7 @@ audit_versions() {
   # npm dependencies (local only — theme source isn't on server)
   if [ "$CURRENT_ENV" = "local" ]; then
     local theme_dir
-    theme_dir="$LOCAL_WP_PATH/wp-content/themes/cecilia-dan-fine-art-theme"
+    theme_dir="$LOCAL_WP_PATH/wp-content/themes/cecilia-dan-theme"
 
     if [ -f "$theme_dir/package.json" ]; then
       local npm_outdated
@@ -698,12 +698,15 @@ audit_plugin_translations() {
 audit_acf_stale_data() {
   echo -e "\n${CYAN}[17] Stale ACF field data${NC}"
 
-  # Check if ACF is active
-  local acf_active
-  acf_active=$(wp_run plugin is-active advanced-custom-fields-pro 2>/dev/null && echo "1" || echo "0")
-
-  if [ "$acf_active" = "0" ]; then
-    acf_active=$(wp_run plugin is-active advanced-custom-fields 2>/dev/null && echo "1" || echo "0")
+  # Check if ACF is active (bypass wp_run — is-active uses exit codes, not stdout,
+  # and wp_run's grep pipe turns empty output into a non-zero exit)
+  local acf_active="0"
+  if [ "$CURRENT_ENV" = "remote" ]; then
+    ssh "$REMOTE" "cd $REMOTE_WP_PATH && $REMOTE_WP_CLI plugin is-active advanced-custom-fields-pro" 2>/dev/null && acf_active="1"
+    [ "$acf_active" = "0" ] && ssh "$REMOTE" "cd $REMOTE_WP_PATH && $REMOTE_WP_CLI plugin is-active advanced-custom-fields" 2>/dev/null && acf_active="1"
+  else
+    "$LOCAL_WP_CLI" --path="$LOCAL_WP_PATH" plugin is-active advanced-custom-fields-pro 2>/dev/null && acf_active="1"
+    [ "$acf_active" = "0" ] && "$LOCAL_WP_CLI" --path="$LOCAL_WP_PATH" plugin is-active advanced-custom-fields 2>/dev/null && acf_active="1"
   fi
 
   if [ "$acf_active" = "0" ]; then
