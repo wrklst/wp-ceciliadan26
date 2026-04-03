@@ -21,7 +21,7 @@
     @php(wp_body_open())
 
     <div class="mx-auto px-6 min-h-dvh max-w-7xl flex flex-col">
-      <a class="sr-only focus:not-sr-only" href="#main">
+      <a class="sr-only focus:not-sr-only focus:w-fit" href="#main">
         {{ __('Skip to content', 'sage') }}
       </a>
 
