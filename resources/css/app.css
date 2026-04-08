@@ -180,11 +180,8 @@ summary:focus-visible h3 {
 /* 9. COMPONENTS */
 
 /* Accordion — details/summary */
-details {
-  cursor: pointer;
-}
-
 summary {
+  cursor: pointer;
   list-style: none;
   display: flex;
   align-items: center;

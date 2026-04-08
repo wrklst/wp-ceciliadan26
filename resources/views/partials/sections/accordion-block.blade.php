@@ -3,10 +3,11 @@
   $headline = get_sub_field('headline');
   $visible = get_sub_field('headline_visible');
   $cta = get_sub_field('call-to-action');
+  $headingId = ($hash ?: 'accordion') . '-heading';
 @endphp
 
-<section class="my-16" @if ($hash) id="{{ $hash }}" @endif>
-  <h2 class="{{ $visible ? 'mb-2 font-semibold' : 'sr-only' }}">
+<section class="my-16" @if ($hash) id="{{ $hash }}" @endif aria-labelledby="{{ $headingId }}">
+  <h2 id="{{ $headingId }}" class="{{ $visible ? 'mb-2 font-semibold' : 'sr-only' }}">
     {{ $headline }}
   </h2>
 

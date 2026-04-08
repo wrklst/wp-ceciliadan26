@@ -2,10 +2,11 @@
   $hash = get_sub_field('hash');
   $headline = get_sub_field('headline');
   $visible = get_sub_field('headline_visible');
+  $headingId = ($hash ?: 'list') . '-heading';
 @endphp
 
-<section class="my-32" @if ($hash) id="{{ $hash }}" @endif>
-  <h2 class="{{ $visible ? 'mb-2 font-semibold' : 'sr-only' }}">
+<section class="my-32" @if ($hash) id="{{ $hash }}" @endif aria-labelledby="{{ $headingId }}">
+  <h2 id="{{ $headingId }}" class="{{ $visible ? 'mb-2 font-semibold' : 'sr-only' }}">
     {{ $headline }}
   </h2>
 

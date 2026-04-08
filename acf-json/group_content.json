@@ -547,7 +547,7 @@
                                     "required": 1,
                                     "conditional_logic": 0,
                                     "wrapper": {
-                                        "width": "25",
+                                        "width": "34",
                                         "class": "",
                                         "id": ""
                                     },
@@ -565,11 +565,11 @@
                                     "name": "job_title",
                                     "aria-label": "",
                                     "type": "text",
-                                    "instructions": "Used in structured data (e.g. \"Projects Director\").",
+                                    "instructions": "",
                                     "required": 0,
                                     "conditional_logic": 0,
                                     "wrapper": {
-                                        "width": "25",
+                                        "width": "33",
                                         "class": "",
                                         "id": ""
                                     },
@@ -591,7 +591,7 @@
                                     "required": 0,
                                     "conditional_logic": 0,
                                     "wrapper": {
-                                        "width": "25",
+                                        "width": "33",
                                         "class": "",
                                         "id": ""
                                     },
@@ -884,5 +884,7 @@
     "description": "",
     "show_in_rest": 0,
     "display_title": "",
-    "modified": 1774874096
+    "allow_ai_access": false,
+    "ai_description": "",
+    "modified": 1775587339
 }

@@ -32,12 +32,12 @@
         </a>
       </address>
       @if ($cta)
-        <div class="mt-4 min-h-11">
+        <div class="mt-4">
           <p>
             <a href="{{ esc_url($cta['link']['url']) }}">{{ $cta['link']['title'] }} <span class="sr-only">{{ __('(opens email client)', 'sage') }}</span></a>
             {{ $cta['text_after'] }}
           </p>
-          <time id="local-time" datetime="{{ $now->format('c') }}" class="small" aria-label="{{ __('Local business time', 'sage') }}">Local time at business: {{ $now->format('l, g:i A T') }}</time>
+          <time id="local-time" datetime="{{ $now->format('c') }}" class="small font-semibold" aria-label="{{ __('Local business time', 'sage') }}">Local time at business: {{ $now->format('l, g:i A T') }}</time>
         </div>
       @endif
     </div>
@@ -67,15 +67,15 @@
   </nav>
 
   @if ($tagline || $disclaimer)
-    <aside class="my-4 small" aria-label="{{ __('About this firm', 'sage') }}">
+    <div class="my-4 small">
       @if ($tagline)
         <p>{{ $tagline }}</p>
       @endif
       @if ($disclaimer)
         <p>{{ $disclaimer }}</p>
       @endif
-    </aside>
+    </div>
   @endif
 
-  <p class="small font-semibold">&copy; {{ $now->format('Y') }} {{ $businessName }}. All rights reserved.</p>
+  <p class="mt-4 small font-semibold">&copy; {{ $now->format('Y') }} {{ $businessName }}. All rights reserved.</p>
 </footer>

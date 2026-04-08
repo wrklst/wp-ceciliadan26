@@ -3,10 +3,11 @@
   $caption = get_sub_field('caption');
   $credit = get_sub_field('photo_credit');
   $creditLink = get_sub_field('photo_credit_link');
+  $headingId = 'image-' . $imageId . '-heading';
 @endphp
 
-<section class="my-32">
-  <h2 class="sr-only">{{ $caption }}</h2>
+<section class="my-32" aria-labelledby="{{ $headingId }}">
+  <h2 id="{{ $headingId }}" class="sr-only">{{ $caption }}</h2>
 
   <figure class="mx-auto max-w-[50rem]">
     {!! wp_get_attachment_image($imageId, 'content-large', false, [
